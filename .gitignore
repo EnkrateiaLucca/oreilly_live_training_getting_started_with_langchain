@@ -24,7 +24,4 @@ Thumbs.db
 # Project files
 
 ## presentation-slides folder
-presentation-slides/*
-
-## keynote presentations
-*.key*
+presentation-slides/
