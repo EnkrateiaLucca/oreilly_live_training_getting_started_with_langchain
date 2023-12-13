@@ -1,0 +1,12 @@
+// Knowledge Graph
+digraph {
+	1 [label="Random Variable" color=lightblue]
+	2 [label="Probability Distribution" color=lightblue]
+	3 [label="Joint Probability Mass Function" color=lightgreen]
+	4 [label="Discrete Random Variables" color=lightblue]
+	5 [label="Probability Mass Function" color=lightgreen]
+	1 -> 2 [label=has color=black]
+	2 -> 3 [label=has color=black]
+	1 -> 4 [label="is a" color=black]
+	4 -> 5 [label=has color=black]
+}
