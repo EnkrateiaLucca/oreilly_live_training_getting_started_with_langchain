@@ -1,0 +1,14 @@
+langchain
+langchainhub
+langchain_experimental
+openai
+pypdf
+chromadb
+arxiv
+xmltodict
+duckduckgo-search
+playwright
+ipydrawio
+ipydrawio_widgets
+nbformat
+
