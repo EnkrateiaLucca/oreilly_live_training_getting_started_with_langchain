@@ -54,4 +54,4 @@ deactivate
 
 ## To use this Environment with Jupyter Notebooks:
 
-```python3 -m ipykernel install --user --name=oreilly_env```
+```python3 -m ipykernel install --user --name=oreilly-langchain```
