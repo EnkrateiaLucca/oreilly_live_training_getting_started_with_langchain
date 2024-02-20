@@ -9,7 +9,9 @@ Link to the event: https://learning.oreilly.com/live-events/getting-started-with
 - Install [anaconda](https://www.anaconda.com/download)
 - Create an environment: `conda create -n oreilly-langchain`
 - Activate your environment with: `conda activate oreilly-langchain`
-- Install requirements with: `pip install -r requirements.txt`
+- Install requirements with:
+  - `pip install -r ./notebooks/requirements.txt`
+
 - Setup your openai [API key](https://platform.openai.com/)
 
 **Pip**
