@@ -10,10 +10,10 @@
 2. [Composing Chain Pipelines with LangChain](notebooks/2.0-LCEL-interface-composing-chains.ipynb)
 3. [QA with LangChain](notebooks/3.0-qa-with-langchain.ipynb)
 4. [LangChain Query CSV](notebooks/3.1-langchain-query-csv.ipynb)
-5. [LangChain QA with GPT-4](notebooks/3.2-dynamic-quiz-over-pdf.ipynb)
+5. [LangChain Dynamic Quiz](notebooks/3.2-dynamic-quiz-over-pdf.ipynb)
 6. [Building LLM Agents with LangChain](notebooks/4.0-building-llm-agents-with-langchain.ipynb)
-7. [Conversational Agent with LangChain](notebooks/4.1-llm-agents-with-memory.ipynb)
-8. [LangChain GitHub Agent Prototype](notebooks/5.0-demos-research-workflows.ipynb)
+7. [Agent + Memory with LangChain](notebooks/4.1-llm-agents-with-memory.ipynb)
+8. [Research Workflows](notebooks/5.0-demos-research-workflows.ipynb)
 9. [LangServe Deployment Example](notebooks/6.0-deployment-with-langserve.ipynb)
 
 ## Setup
