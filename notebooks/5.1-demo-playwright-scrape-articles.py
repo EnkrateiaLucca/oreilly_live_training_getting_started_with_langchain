@@ -1,9 +1,10 @@
+# requires installing playwright! 
 import pprint
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import AsyncChromiumLoader
 from langchain.document_transformers import BeautifulSoupTransformer
 from langchain.chains import create_extraction_chain
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 
 def extract(content: str, schema: dict):
     return create_extraction_chain(schema=schema, llm=llm).run(content)
