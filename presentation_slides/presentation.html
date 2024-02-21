@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-    <title>LangChain Presentation</title>
+    <title>Introduction to LLM-Based Agents</title>
     <meta charset="utf-8">
     <style>
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -32,21 +31,23 @@
       
       --
       
-        - Presentation Block
+        - __Presentation Block__
       
       --
 
-        - Notebook Demo
+        - __Notebook Demo__
       
       --
 
-        - Quick Q&A + Summary
+        - __Quick Q&A + Summary__
       
       --
 
-        - Optional Exercise During Q&A (for those that don't have questions and want to try something out)
-
-        - Repeat
+        - __Optional Exercise__ During Q&A (for those that don't have questions and want to try something out)
+      
+      --
+      
+      - Repeat
 
       ---
 
@@ -244,8 +245,36 @@
       
       --
       
-      - Allows you to build complex chain pipelines 
+      - Allows you to build complex chain pipelines
         with a simple standard interface
+      
+      ---
+
+      # LCEL - Runnables
+
+
+      - To facilitate creation of custom chains, LangChain has implemented a __"Runnable" protocol__.
+
+      --
+
+      - The standard interface includes `stream`, `invoke`, and `batch` methods. Async methods are also available
+
+      --
+      
+      - The input type and output type vary by component:
+
+      <img src="../notebooks/assets-resources/components_input_output.png" alt="Components Input Output" style="width: 600px;"/>
+
+      ???
+
+        - `stream`: Stream back chunks of the response
+      
+      
+        
+        - `invoke`: Call the chain on an input
+      
+        
+        - `batch`: Call the chain on a list of inputs
 
       ---
       class: center, middle
@@ -308,12 +337,6 @@
 
       - It's about connecting LLMs to documents like PDFs, Text files, HTML, etc.
 
-      ---
-
-      # LangChain for Chat Over Documents
-
-      <img src="../notebooks/assets-resources/rag-docs.png">
-
       --
 
       - How do we get around the context length limitations of LLMs?
@@ -322,7 +345,12 @@
 
       - Quick Answer is __Embeddings__!
 
-      --
+      ---
+
+      # LangChain for Chat Over Documents
+
+      <img src="../notebooks/assets-resources/rag-docs.png">
+
 
       - Embeddings are vectorized representations of text
 
@@ -448,6 +476,12 @@
       - __Vector DBs__ are used to store and retrieve embeddings.
 
       - __RAG__ systems with LangChain are built using a pipeline that includes loading, splitting, embedding, and storing documents.
+
+      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
+
+        ```
+        Create a simple RAG system with LangChain that can answer questions about pdfs or csvs. 
+        ```
 
       ???
 
@@ -636,18 +670,82 @@
 
       - __LangChain__ provides a wide set of toolkits, groups of 3-5 tools for specific objectives, an example is GitHub toolkit for interacting with GitHub.
 
+      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
+
+        ```
+        Create a simple agent that can create a schedule for you given a table of tasks and deadlines.
+        table format = task | date
+        ```
+
+      # 
+
       ???
 
       <span style="color: red">Maybe add a live chat summary?</span>
 
       ---
+      class: center, middle
+
+      # Break 5 minutes
+
+      ---
+
+      # LangServe Super Quick Intro
+
+      - LangServe helps developers deploy LangChain runnables and chains as a REST API. 
+
+      --
+
+      - It is integrated with FastAPI and uses pydantic for data validation. 
+
+      --
+
+      - It provides a client that can be used to call into runnables deployed on a server.
+
+      --
+
+      - Input and Output schemas automatically inferred from your LangChain object, and enforced on every API call, with rich error messages
+        
+      --
+      
+      - Efficient /invoke/, /batch/ and /stream/ endpoints with support for many concurrent requests on a single server    
+      
+      --
+      
+      - Playground page at /playground/ with streaming output and intermediate steps
+
+      --
+      
+      - Built-in (optional) tracing to LangSmith, just add your API key (see Instructions)
+      
+      --
+      
+      - Use the client SDK to call a LangServe server as if it was a Runnable running locally (or call the HTTP API directly)
+
+      --
+
+      <h2>
+      <span style="background-color: lightgreen">
+        Notebook Demo - Deployment with LangServe
+      </span>
+      </h2>
+
+      ---
+
+      # Final Q&A & Summary
+
+      - __LangServe__ helps developers deploy LangChain runnables and chains as a REST API.
+
+      - It is integrated with FastAPI and uses pydantic for data validation.
+    
+      ---
+
 
       # References
-
-      - [HuggingGPT](https://github.com/microsoft/JARVIS)
+      - [LangChain Intro Docs](https://python.langchain.com/docs/get_started/introduction)
+      - [LangChain Documentation](https://python.langchain.com/docs/modules/agents/concepts)
       - [Gen Agents](https://arxiv.org/pdf/2304.03442.pdf)
       - [WebGPT](https://www.semanticscholar.org/paper/WebGPT%3A-Browser-assisted-question-answering-with-Nakano-Hilton/2f3efe44083af91cef562c1a3451eee2f8601d22)
-      - [LangChain](https://python.langchain.com/docs/get_started/introduction)
       - [OpenAI](https://openai.com/)
       - [OpenAI Function Calling](https://platform.openai.com/docs/guides/function-calling)
       - [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
