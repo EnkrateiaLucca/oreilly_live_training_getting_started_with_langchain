@@ -13,6 +13,7 @@ build/
 # Ignore log files
 *.log
 *.sqlite
+*.bin
 
 # Ignore editor-specific files
 .vscode/
