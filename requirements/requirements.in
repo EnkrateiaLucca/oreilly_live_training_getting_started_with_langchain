@@ -6,6 +6,7 @@ langchain-cli
 openai
 pypdf
 chromadb
+faiss-cpu
 arxiv
 xmltodict
 duckduckgo-search

@@ -111,6 +111,7 @@ entrypoints==0.4
     # via jupyter-client
 executing==2.0.1
     # via stack-data
+faiss-cpu==1.8.0
 fastapi==0.109.2
     # via
     #   chromadb
@@ -356,6 +357,7 @@ numpy==1.26.4
     # via
     #   chroma-hnswlib
     #   chromadb
+    #   faiss-cpu
     #   langchain
     #   langchain-community
     #   onnxruntime
