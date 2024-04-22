@@ -6,22 +6,41 @@
 
 ## Notebooks
 
-1. [Introduction to LangChain](notebooks/1.0-intro-to-langchain.ipynb)
-2. [Composing Chain Pipelines with LangChain](notebooks/2.0-LCEL-interface-composing-chains.ipynb)
-3. [QA with LangChain](notebooks/3.0-qa-with-langchain.ipynb)
-4. [LangChain Query CSV](notebooks/3.1-langchain-query-csv.ipynb)
-5. [LangChain Dynamic Quiz](notebooks/3.2-dynamic-quiz-over-pdf.ipynb)
-6. [Building LLM Agents with LangChain](notebooks/4.0-building-llm-agents-with-langchain.ipynb)
-7. [Agent + Memory with LangChain](notebooks/4.1-llm-agents-with-memory.ipynb)
-8. [Research Workflows](notebooks/5.0-demos-research-workflows.ipynb)
-9. [LangServe Deployment Example](notebooks/6.0-deployment-with-langserve.ipynb)
+1. **Getting Started with LangChain**
+   - [Introduction to LangChain](notebooks/1.0-intro-to-langchain.ipynb)
+   - [LangChain Application Development Structure](notebooks/1.1-langchain-app-dev-structure.ipynb)
+
+2. **Composing and Utilizing Chains**
+   - [Composing Chain Pipelines with LangChain](notebooks/2.0-LCEL-interface-composing-chains.ipynb)
+   - [Integrating OpenAI Functions and Runnables with Tools](notebooks/2.1-langchain-openai-functions-runnables-with-tools.ipynb)
+   - [Utilizing Pydantic with OpenAI in LangChain](notebooks/2.2-langchain-pydantic-openai.ipynb)
+   - [Learning Chain with ADEPT Example](notebooks/2.3-learning-chain-adept-example.ipynb)
+   - [Extraction and Tagging with LangChain](notebooks/2.4-extraction-tagging-with-langchain.ipynb)
+
+3. **Advanced Query and Dynamic Content**
+   - [QA with LangChain](notebooks/3.0-qa-with-langchain.ipynb)
+   - [Querying CSV Data with LangChain](notebooks/3.1-langchain-query-csv.ipynb)
+   - [Dynamic Quiz over PDF](notebooks/3.2-dynamic-quiz-over-pdf.ipynb)
+
+4. **Building Intelligent Agents**
+   - [Building LLM Agents with LangChain](notebooks/4.0-building-llm-agents-with-langchain.ipynb)
+   - [Enhancing LLM Agents with Memory](notebooks/4.1-llm-agents-with-memory.ipynb)
+   - [Prototype GitHub Agent with LangChain](notebooks/4.2-langchain-github-agent-prototype.ipynb)
+
+5. **Demonstrations and Practical Applications**
+   - [Research Workflows](notebooks/5.0-demos-research-workflows.ipynb)
+   - [Automated Article Scraping with Playwright](notebooks/5.1-demo-playwright-scrape-articles.py)
+
+6. **Deployment and Integration**
+   - [LangChain Deployment Recipe](notebooks/6.0-langchain-deploy-recipe.ipynb)
+
 
 ## Setup
 
 **Conda**
 
 - Install [anaconda](https://www.anaconda.com/download)
-- Create an environment: `conda create -n oreilly-langchain`
+- Create an environment: `conda create -n oreilly-langchain python=3.11`
 - Activate your environment with: `conda activate oreilly-langchain`
 - Install requirements with: `pip install -r requirements.txt`
 - Setup your openai [API key](https://platform.openai.com/)
