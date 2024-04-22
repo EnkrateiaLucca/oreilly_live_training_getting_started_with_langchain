@@ -2,6 +2,7 @@ langchain
 langchain-openai
 langchainhub
 langchain_experimental
+langchain-cli
 openai
 pypdf
 chromadb
@@ -9,6 +10,8 @@ arxiv
 xmltodict
 duckduckgo-search
 playwright
+graphviz
 ipydrawio
 ipydrawio_widgets
 nbformat
+python-dotenv
