@@ -7,8 +7,8 @@
 ## Notebooks
 
 1. **Getting Started with LangChain**
-   - [Introduction to LangChain](https://colab.research.google.com/github/your-username/your-repo/blob/main/notebooks/1.0-intro-to-langchain.ipynb)
-   - [LangChain Application Development Structure](https://colab.research.google.com/github/your-username/your-repo/blob/main/notebooks/1.1-langchain-app-dev-structure.ipynb)
+   - [Introduction to LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.0-intro-to-langchain.ipynb)
+   - [LangChain Application Development Structure](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.1-langchain-app-dev-structure.ipynb)
 
 2. **Composing and Utilizing Chains**
    - [Composing Chain Pipelines with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.0-LCEL-interface-composing-chains.ipynb)
