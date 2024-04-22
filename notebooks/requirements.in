@@ -2,6 +2,7 @@ langchain
 langchain-openai
 langchainhub
 langchain_experimental
+langchain-cli
 openai
 pypdf
 chromadb
@@ -12,3 +13,4 @@ playwright
 ipydrawio
 ipydrawio_widgets
 nbformat
+python-dotenv
