@@ -1,8 +1,9 @@
+ipykernel
 langchain
 langchain-openai
-langchainhub
 langchain_experimental
 langchain-cli
+langchainhub
 openai
 pypdf
 chromadb
