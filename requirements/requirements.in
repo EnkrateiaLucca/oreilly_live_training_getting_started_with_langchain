@@ -4,6 +4,7 @@ langchain-openai
 langchain_experimental
 langchain-cli
 langchainhub
+langgraph
 openai
 pypdf
 chromadb
