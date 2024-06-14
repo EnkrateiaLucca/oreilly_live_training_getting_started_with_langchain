@@ -19,3 +19,4 @@ ipydrawio_widgets
 nbformat
 python-dotenv
 pandas
+matplotlib
