@@ -1,10 +1,11 @@
 ipykernel
-langchain
+langchain==0.2.14
 langchain-openai
 langchain_experimental
 langchain-cli
 langchainhub
 langgraph
+langsmith
 openai
 pypdf
 chromadb

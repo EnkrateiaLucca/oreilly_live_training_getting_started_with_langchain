@@ -263,12 +263,12 @@ kiwisolver==1.4.5
     # via matplotlib
 kubernetes==30.1.0
     # via chromadb
-langchain==0.2.3
+langchain==0.2.14
     # via langchain-community
 langchain-cli==0.0.24
 langchain-community==0.2.4
     # via langchain-experimental
-langchain-core==0.2.5
+langchain-core==0.2.34
     # via
     #   langchain
     #   langchain-community
@@ -675,6 +675,7 @@ typing-extensions==4.12.2
     #   fastapi
     #   huggingface-hub
     #   ipython
+    #   langchain-core
     #   openai
     #   opentelemetry-sdk
     #   pydantic
