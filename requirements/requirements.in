@@ -7,6 +7,8 @@ langchain-cli
 langchainhub
 langgraph
 langsmith
+fastapi
+langserve
 openai
 pypdf
 chromadb

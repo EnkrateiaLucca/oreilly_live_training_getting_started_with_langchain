@@ -8,14 +8,9 @@
 
 1. **Getting Started with LangChain**
    - [Introduction to LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.0-intro-to-langchain.ipynb)
-   - [LangChain Application Development Structure](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.1-langchain-app-dev-structure.ipynb)
 
 2. **Composing and Utilizing Chains**
    - [Composing Chain Pipelines with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.0-LCEL-interface-composing-chains.ipynb)
-   - [Integrating OpenAI Functions and Runnables with Tools](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.1-langchain-openai-functions-runnables-with-tools.ipynb)
-   - [Utilizing Pydantic with OpenAI in LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.2-langchain-pydantic-openai.ipynb)
-   - [Learning Chain with ADEPT Example](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.3-learning-chain-adept-example.ipynb)
-   - [Extraction and Tagging with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.4-extraction-tagging-with-langchain.ipynb)
 
 3. **Advanced Query and Dynamic Content**
    - [QA with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.0-qa-with-langchain.ipynb)
@@ -24,15 +19,9 @@
 
 4. **Building Intelligent Agents**
    - [Building LLM Agents with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.0-building-llm-agents-with-langchain.ipynb)
-   - [Enhancing LLM Agents with Memory](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.1-llm-agents-with-memory.ipynb)
-   - [Prototype GitHub Agent with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.2-langchain-github-agent-prototype.ipynb)
 
 5. **Demonstrations and Practical Applications**
    - [Research Workflows](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/5.0-demos-research-workflows.ipynb)
-   - [Automated Article Scraping with Playwright](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/5.1-demo-playwright-scrape-articles.py)
-
-6. **Deployment and Integration**
-   - [LangChain Deployment Recipe](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/6.0-langchain-deploy-recipe.ipynb)
 
 
 ## Setup
