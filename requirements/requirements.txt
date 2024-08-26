@@ -153,6 +153,7 @@ httptools==0.6.1
 httpx==0.27.0
     # via
     #   langserve
+    #   ollama
     #   openai
 huggingface-hub==0.23.3
     # via tokenizers
@@ -273,11 +274,13 @@ langchain-core==0.2.34
     #   langchain
     #   langchain-community
     #   langchain-experimental
+    #   langchain-ollama
     #   langchain-openai
     #   langchain-text-splitters
     #   langgraph
     #   langserve
 langchain-experimental==0.0.60
+langchain-ollama==0.1.1
 langchain-openai==0.1.8
 langchain-text-splitters==0.2.1
     # via langchain
@@ -362,6 +365,8 @@ oauthlib==3.2.2
     # via
     #   kubernetes
     #   requests-oauthlib
+ollama==0.3.1
+    # via langchain-ollama
 onnxruntime==1.18.0
     # via chromadb
 openai==1.34.0

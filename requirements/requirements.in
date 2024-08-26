@@ -1,6 +1,7 @@
 ipykernel
 langchain==0.2.14
 langchain-openai
+langchain-ollama
 langchain_experimental
 langchain-cli
 langchainhub
