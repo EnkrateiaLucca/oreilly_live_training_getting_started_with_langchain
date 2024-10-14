@@ -1,5 +1,5 @@
 ipykernel
-langchain==0.2.14
+langchain>=0.3
 langchain-openai
 langchain-ollama
 langchain_experimental
@@ -24,3 +24,4 @@ nbformat
 python-dotenv
 pandas
 matplotlib
+wikipedia
