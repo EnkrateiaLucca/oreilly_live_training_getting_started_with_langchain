@@ -1,3 +1,4 @@
+# source: https://python.langchain.com/docs/tutorials/llm_chain/#:~:text=Server%E2%80%8B,with%20langserve.add_routes
 #!/usr/bin/env python
 from fastapi import FastAPI
 from langchain_core.prompts import ChatPromptTemplate

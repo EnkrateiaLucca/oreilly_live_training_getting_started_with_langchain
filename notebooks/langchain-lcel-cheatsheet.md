@@ -1,0 +1,25 @@
+# LangChain Expression Language (LCEL) Cheat Sheet
+
+- **Invoke a runnable:** Use `Runnable.invoke()` for synchronous and `Runnable.ainvoke()` for asynchronous invocation.
+- **Batch a runnable:** Use `Runnable.batch()` for synchronous and `Runnable.abatch()` for asynchronous batching.
+- **Stream a runnable:** Use `Runnable.stream()` for synchronous and `Runnable.astream()` for asynchronous streaming.
+- **Compose runnables:** Use the pipe operator `|` to chain runnables.
+- **Invoke runnables in parallel:** Use `RunnableParallel` to run multiple runnables concurrently.
+- **Turn any function into a runnable:** Use `RunnableLambda` to convert a function into a runnable.
+- **Merge input and output dicts:** Use `RunnablePassthrough.assign` to merge input and output dictionaries.
+- **Include input dict in output dict:** Use `RunnablePassthrough` to include input in the output.
+- **Add default invocation args:** Use `Runnable.bind` to bind default arguments to a runnable.
+- **Add fallbacks:** Use `Runnable.with_fallbacks` to add fallback runnables.
+- **Add retries:** Use `Runnable.with_retry` to add retry logic to a runnable.
+- **Configure runnable execution:** Use `RunnableConfig` to specify execution configurations.
+- **Add default config to runnable:** Use `Runnable.with_config` to add default configurations.
+- **Make runnable attributes configurable:** Use `Runnable.with_configurable_fields` for configurable attributes.
+- **Make chain components configurable:** Use `Runnable.with_configurable_alternatives` for configurable chain components.
+- **Build a chain dynamically based on input:** Use conditionals to dynamically build chains.
+- **Generate a stream of events:** Use `Runnable.astream_events` for asynchronous event streams.
+- **Yield batched outputs as they complete:** Use `Runnable.batch_as_completed` for synchronous and `Runnable.abatch_as_completed` for asynchronous batching.
+- **Return subset of output dict:** Use `Runnable.pick` to select specific parts of the output.
+- **Declaratively make a batched version of a runnable:** Use `Runnable.map` for batching.
+- **Get a graph representation of a runnable:** Use `Runnable.get_graph` to visualize the runnable.
+- **Get all prompts in a chain:** Use `Runnable.get_prompts` to retrieve prompts from a chain.
+- **Add lifecycle listeners:** Use `Runnable.with_listeners` to add start and end listeners to a runnable.
