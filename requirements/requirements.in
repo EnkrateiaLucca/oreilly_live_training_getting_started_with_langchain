@@ -4,6 +4,7 @@ langchain-openai
 langchain-ollama
 langchain_experimental
 langchain-cli
+langchain_chroma
 langchainhub
 langgraph
 langsmith
@@ -11,7 +12,6 @@ fastapi
 langserve
 openai
 pypdf
-chromadb
 faiss-cpu
 arxiv
 xmltodict

@@ -70,7 +70,7 @@ charset-normalizer==3.3.2
 chroma-hnswlib==0.7.3
     # via chromadb
 chromadb==0.5.0
-    # via -r ./requirements/requirements.in
+    # via langchain-chroma
 click==8.1.7
     # via
     #   duckduckgo-search
@@ -114,6 +114,7 @@ fastapi==0.110.3
     # via
     #   -r ./requirements/requirements.in
     #   chromadb
+    #   langchain-chroma
     #   langserve
     #   sse-starlette
 fastjsonschema==2.19.1
@@ -282,6 +283,8 @@ langchain==0.3.3
     # via
     #   -r ./requirements/requirements.in
     #   langchain-community
+langchain-chroma==0.1.4
+    # via -r ./requirements/requirements.in
 langchain-cli==0.0.24
     # via -r ./requirements/requirements.in
 langchain-community==0.3.2
@@ -289,6 +292,7 @@ langchain-community==0.3.2
 langchain-core==0.3.10
     # via
     #   langchain
+    #   langchain-chroma
     #   langchain-community
     #   langchain-experimental
     #   langchain-ollama
@@ -389,6 +393,7 @@ numpy==1.26.4
     #   contourpy
     #   faiss-cpu
     #   langchain
+    #   langchain-chroma
     #   langchain-community
     #   matplotlib
     #   onnxruntime
