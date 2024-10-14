@@ -33,7 +33,7 @@ schema = {
     "required": ["news_article_title", "news_article_summary"],
 }
 
-llm = ChatOpenAI(temperature=0, model="gpt-4-1106-preview")
+llm = ChatOpenAI(temperature=0, model="gpt-4o-mini")
 
 urls = ["https://www.wsj.com"]
 
