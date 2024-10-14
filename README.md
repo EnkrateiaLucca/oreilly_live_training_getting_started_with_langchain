@@ -9,19 +9,24 @@
 1. **Getting Started with LangChain**
    - [Introduction to LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.0-intro-to-langchain.ipynb)
 
-2. **Composing and Utilizing Chains**
-   - [Composing Chain Pipelines with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.0-LCEL-interface-composing-chains.ipynb)
+2. **Advanced Query and Dynamic Content**
+   - [QA with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.0-qa-with-langchain.ipynb)
+   - [Querying CSV Data with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.1-langchain-query-csv.ipynb)
+   - [Dynamic Quiz over PDF](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.2-dynamic-quiz-over-pdf.ipynb)
+   - [QA Fully Local](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.3-qa-fully-local.ipynb)
 
-3. **Advanced Query and Dynamic Content**
-   - [QA with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.0-qa-with-langchain.ipynb)
-   - [Querying CSV Data with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.1-langchain-query-csv.ipynb)
-   - [Dynamic Quiz over PDF](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.2-dynamic-quiz-over-pdf.ipynb)
+3. **Building Intelligent Agents**
+   - [Building LLM Agents with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.0-building-llm-agents-with-langchain.ipynb)
+   - [LangChain GitHub Agent Prototype](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.1-langchain-github-agent-prototype.ipynb)
 
-4. **Building Intelligent Agents**
-   - [Building LLM Agents with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.0-building-llm-agents-with-langchain.ipynb)
+4. **Quick Introduction to LangGraph**
+   - [Quick Introduction to LangGraph](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.0-langgraph-quick-introduction.ipynb)
 
 5. **Demonstrations and Practical Applications**
    - [Research Workflows](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/5.0-demos-research-workflows.ipynb)
+
+6. **Additional Resources**
+   - [Live Coding Demo QA PDF](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/live-coding-demo-qa-pdf.ipynb)
 
 
 ## Setup
@@ -34,8 +39,12 @@
 - Install requirements with: `pip install -r requirements.txt`
 - Setup your openai [API key](https://platform.openai.com/)
 
-**Pip**
+**If you're used to Makefiles**
+- Install `uv` with `pip install uv`
+- Run `make all`
+- Activate your environment just like below and you're done
 
+**Pip**
 
 1. **Create a Virtual Environment:**
     Navigate to your project directory. If using Python 3's built-in `venv`:
