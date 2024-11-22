@@ -21,7 +21,7 @@
       class: center, middle
       # Getting Started with LangChain
       ### Lucas Soares
-      #### 21-02-2024
+      #### 10-25-2024
 
       ---
 
@@ -91,9 +91,10 @@
 
       ---
 
-      # What is Langchain?
-
-      <img src="../notebooks/assets-resources/langchain-icon.svg" alt="Langchain Icon" style="width: 100px; margin-left: 50px;"/>
+      <div style="display: flex; align-items: center;">
+        <h1 style="margin: 0;">What is Langchain?</h1>
+        <img src="../notebooks/assets-resources/langchain-icon.svg" alt="Langchain Icon" style="width: 100px; margin-left: 20px;"/>
+      </div>
 
       --
 
@@ -110,10 +111,6 @@
       --
 
         - off-the-shelf-chains
-
-      --
-
-      - Meaning: LangChain gives you building blocks for building interesting and powerful LLM applications
 
       ---
 
@@ -156,7 +153,7 @@
 
       --
 
-        ```python
+        ``````
         from langchain_core.prompts import ChatPromptTemplate
 
         prompt = ChatPromptTemplate.from_template(
@@ -319,6 +316,9 @@
 
       ---
 
+
+      ---
+
       # LangChain for Chat Over Documents
 
       <img src="../notebooks/assets-resources/rag-docs.png">
@@ -426,30 +426,8 @@
         - LLM uses the prompt question + retrieved data to produce a final answer
       
       ---
-
+      class: center, middle
       # LangChain for Chat Over Documents
-
-      - Sample Code
-
-      ```python
-      from langchain import hub
-      from langchain_community.vectorstores import Chroma
-      from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-      from langchain.document_loaders import PyPDFLoader
-      from langchain.chains import RetrievalQA
-
-      pdf_path = "path-to-pdf.pdf"
-      loader = PyPDFLoader(pdf_path) # LOAD
-      pdf_docs = loader.load_and_split() # SPLIT
-      embeddings = OpenAIEmbeddings() # EMBED
-      vectordb = Chroma.from_documents(pdf_docs, embedding=embeddings) # STORE
-      retriever = vectordb.as_retriever() 
-      llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
-      pdf_qa = RetrievalQA.from_llm(llm=llm, retriever=retriever) # RETRIEVE
-      pdf_qa.invoke("What is this paper about?") # ANSWER
-      ```
-
-      --
 
       <h2>
       <span style="background-color: lightgreen">
@@ -525,134 +503,14 @@
 
       - **Agent**: Chain responsible for deciding the next step, powered by a language model.
 
-      ---
-
-      # Agent Inputs and Outputs
-
-      ## Agent Inputs
-
-      --
-      
-      - Key-value mapping.
-
-      --
-
-      - Required key: `intermediate_steps`.
-
-      --
-
-      ## Agent Outputs
-
-      --
-
-      - Next actions or final response (AgentActions or AgentFinish).
-
-      --
-
-      - Handled by the output parser.
+      <h2>
+      <span style="background-color: lightgreen">
+       Notebook Demo - Simple React Agent Walthrough in LangChain
+      </span>
+      </h2>
 
       ---
 
-      # AgentExecutor
-      
-      - The agent executor is the runtime for an agent. 
-
-      --
-      
-      - It calls the agent, executes the actions it chooses, passes the action outputs back to the agent, and repeats. 
-
-      --
-
-      - In pseudocode, this looks roughly like:
-        ```
-          next_action = agent.get_action(...)
-          while next_action != AgentFinish:
-              observation = run(next_action)
-              next_action = agent.get_action(..., next_action, observation)
-          return next_action
-        ```
-
-      --
-      - Runtime handles things like:
-
-        - Handling cases where the agent selects a non-existent tool
-
-      --
-        
-        - Handling cases where the tool errors
-      
-      --
-
-        - Handling cases where the agent produces output that cannot be parsed into a tool invocation
-      
-      --
-
-        - Logging and observability at all levels (agent decisions, tool calls) to stdout and/or to LangSmith.
-      
-      <p style="font-size: 14px; margin-top: 50px; margin-left: 800px">
-        <a href="https://python.langchain.com/docs/modules/agents/concepts">LangChain Agents Documentation</a>
-      </p>
-
-      ---
-      class: center, middle
-
-      # 
-
-      ---
-
-      # Tools in LangChain
-
-      --
-
-      - Functions that an agent can call.
-
-      --
-
-      - Consists of:
-
-      --
-        - Input schema for the tool.
-
-      --
-
-        - Function to run.
-
-      --
-
-      - Important for building a working agent.
-      ---
-
-      # Langchain Toolkits
-
-      --
-
-      <div style="display: flex; align-items: left; margin-top: 50px;">
-        <div style="flex: 1;">
-          <ul>
-
-            <li>LangChain provides a wide set of toolkits.</li>
-
-            <li>Groups of 3-5 tools for specific objectives.</li>
-
-            <li>Example: GitHub toolkit for interacting with GitHub.</li>
-            
-          </ul>
-        </div>
-        <div style="flex: 1;">
-          <img src="../notebooks/assets-resources/langchain-toolkits.png" alt="LangChain Toolkits" style="width: 400px;"/>
-        </div>
-      </div>
-
-      ---
-      class: center, middle
-
-      # Let's Build Agents!
-
-      <h2><span style="background-color: lightgreen">
-        Notebook Demo - Building LLM Agents with LangChain; Github Agent; Research Assistant
-      </span> </h2>
-
-      ---
 
       # Q&A & Summary
 
@@ -671,11 +529,276 @@
         table format = task | date
         ```
 
-      # 
+      --- 
+      # Building Agents with LangGraph
 
-      ???
+      # Understanding Agentic Systems
+        
+      - **Agentic Systems**: Systems that utilize large language models (LLMs) to manage the control flow of applications.
+      
+      --
+      
+      - **Key Functions**: Routing decisions, tool selection, and evaluating output sufficiency.
 
-      <span style="color: red">Maybe add a live chat summary?</span>
+      --
+      
+      - **Agent Loop**: Continuous decision-making process that enables agents to solve complex tasks.
+
+      <p class="footnote">
+          <a href='https://langchain-ai.github.io/langgraph/concepts/high_level/#deployment'> Understanding agentic systems in LangGraph. </a>
+      </p>
+
+      ---
+
+      # The Agent Loop
+
+      --
+        
+      <img src="../notebooks/assets-resources/agent-loop.png" width="1500">
+
+      <p class="footnote">
+          <a href='https://blog.langchain.dev/openais-bet-on-a-cognitive-architecture/'> Explanation of the agent loop in cognitive architectures. </a>
+      </p>
+
+      ---
+
+      # Practical Use Case: Customer Support Agent
+
+      --
+      
+      - **Scenario**: An LLM-powered customer support agent.
+
+      --
+      
+      - **User Input**: Customer asks about order status.
+
+      --
+      
+      - **LLM Decision**: Determines if it can provide the status directly or if it needs to fetch data from the database.
+
+      --
+      
+      - **Action Taken**: If data fetch is needed, the agent queries the database and updates the user with the order status.
+
+      <p class="footnote">
+          <a href='https://langchain-ai.github.io/langgraph/concepts/high_level/#deployment'> Practical use case of LLM agents in customer support. </a>
+      </p>
+
+      ---
+
+      ## Advantages of LLM Agents
+
+      --
+      
+      - **Flexibility**: Agents can adapt to various tasks by determining the best action to take.
+
+      --
+      
+      - **Specialization**: LLM agents can be specialized with a set of tools to perform niche tasks.
+
+      --
+      
+      - **Multi-Agent Collaboration**: Specialized LLM agents can collaborate to perform complex tasks.
+
+      <p class="footnote">
+          <a href='https://blog.langchain.dev/langgraph-multi-agent-workflows/'> LangGraph: Multi-Agent Workflows </a>
+      </p>
+
+      ---
+
+      ## Key Components of Agentic Systems
+
+      --
+      
+      1. **Tool Calling**: Utilizing external tools to perform tasks.
+
+      --
+
+      2. **Action Taking**: Executing actions based on LLM outputs.
+
+      --
+
+      3. **Memory**: Keeping track of interactions for context-aware responses.
+
+      --
+      
+      4. **Planning**: Structuring steps to ensure optimal decision-making.
+
+      <p class="footnote">
+          <a href='https://langchain-ai.github.io/langgraph/concepts/high_level/#deployment'> Key components of agentic systems. </a>
+      </p>
+
+      ---
+
+      # Agents as Graphs
+
+      --
+
+      - Workflows built with agents are usually structured as graphs!!
+
+      <img src="../notebooks/assets-resources/basic-agent-diagram.png" width="500">
+
+      ---
+      
+      # Why LangGraph?
+      
+      LangGraph is designed for building agentic applications with some core principles:
+
+      --
+      
+      - **Controllability**: Offers low-level control which increases reliability in agentic systems.
+
+      --
+      
+      - **Human-in-the-Loop**: Built-in persistence layer enhances human-agent interaction patterns.
+
+      --
+      
+      - **Streaming First**: Supports streaming of events and tokens, providing real-time feedback to users.
+      
+      <p class="footnote">
+          <a href='https://langchain-ai.github.io/langgraph/concepts/high_level/#why-langgraph'> Overview of LangGraph's purpose and principles. </a>
+      </p>
+      
+      ---
+      
+      ## The Basic Components of LangGraph
+      
+      LangGraph models agent workflows as graphs:
+
+      --
+
+      <img src="../notebooks/assets-resources/langgraph-components.png" style="width:400px; margin-left: 150px;">
+
+      --
+      
+      - **Nodes**: Python functions that implement the logic of agents, taking the current State as input and returning an updated State.
+
+      --
+      
+      - **Edges/Conditional Edges**: Functions that implement fixed/conditional transitions to determine which Node to execute next based on the current State.
+
+      <p class="footnote">
+        <a href='https://langchain-ai.github.io/langgraph/concepts/low_level/#update-state'> Explanation of LangGraph's components. </a>
+      </p>
+      
+      ---
+      
+      ## States in LangGraph
+      
+      These graphs in LangGraph are driven by:
+
+      --
+      
+      - **States**: Shared data structures that evolve over time as Nodes execute and pass messages along Edges.
+
+      --
+      
+      - **Message Passing**: Nodes send messages to activate other Nodes, facilitating the execution of workflows in discrete iterations or "super-steps".
+      
+      <p class="footnote">
+          <a href='https://langchain-ai.github.io/langgraph/concepts/low_level/#update-state'> Overview of how graphs and states interact in LangGraph. </a>
+      </p>
+      
+      ---
+      class: center, middle
+
+      <h1>
+      <span style="background-color: lightgreen">
+       Notebook Demo: Introduction to LangGraph 
+      </span>
+      </h1>
+
+      ---
+      
+      ## Nodes
+      In LangGraph, Nodes are the core functional units:
+
+      --
+
+      - **Functionality**: Each Node is a Python function that processes the current State and outputs an updated State.
+
+      --
+      
+      - **Execution**: Nodes can run synchronously or asynchronously, and are added to the graph using the `add_node` method.
+
+      --
+      
+      - **Special Nodes**: Includes START and END Nodes to manage the flow of execution in the graph.
+      
+      <p class="footnote">
+          <a href='https://langchain-ai.github.io/langgraph/concepts/low_level/#update-state'> Details on the functionality and structure of Nodes in LangGraph. </a>
+      </p>
+      
+      ---
+      class: center, middle
+
+      <h1>
+      <span style="background-color: lightgreen">
+       Notebook Demo: Nodes in LangGraph 
+      </span>
+      </h1>
+
+      ---
+      
+      ## Edges
+      
+      Edges define the routing logic in LangGraph:
+      
+      - **Types of Edges**:
+
+      --
+        
+        - **Normal Edges**: Direct transitions from one Node to another.
+      
+      --
+        
+        - **Conditional Edges**: Determine the next Node(s) to execute based on a function's output.
+      
+      --
+        
+        - **Entry Points**: Specify which Node to invoke first based on user input.
+      
+      --
+      
+      - **Parallel Execution**: Multiple outgoing edges from a Node can trigger parallel execution of destination Nodes.
+      
+      <p class="footnote">
+          <a href='https://langchain-ai.github.io/langgraph/concepts/low_level/#update-state'> Explanation of Edges and their role in LangGraph. </a>
+      </p>
+      
+      ---
+      class: center, middle
+
+      <h1>
+        <span style="background-color: lightgreen">
+         Notebook Demo: Edges in LangGraph 
+        </span>
+      </h1>
+
+
+      ---
+
+      # Agent Loop in LangGraph
+
+      - Outline of an basic agent loop in langgraph:
+
+      --
+
+      <img src="../notebooks/assets-resources/agent-loop-langgraph-version.png" width="550">
+
+      
+
+      ---
+      class: center, middle
+
+      <h1>
+        <span style="background-color: lightgreen">
+         Notebook Demo: A Basic Research Agent in LangGraph 
+        </span>
+      </h1>
+
+      
 
       ---
       class: center, middle
@@ -759,3 +882,4 @@
   </body>
 </html>
 
+```
