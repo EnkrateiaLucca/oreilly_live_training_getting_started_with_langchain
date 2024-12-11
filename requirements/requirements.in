@@ -6,7 +6,7 @@ langchain_experimental
 langchain-cli
 langchain_chroma
 langchainhub
-langgraph
+langgraph>=0.2.58
 langsmith
 fastapi
 langserve

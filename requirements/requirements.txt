@@ -163,6 +163,7 @@ httptools==0.6.1
     # via uvicorn
 httpx==0.27.0
     # via
+    #   langgraph-sdk
     #   langserve
     #   langsmith
     #   ollama
@@ -291,7 +292,7 @@ langchain-cli==0.0.24
     # via -r ./requirements/requirements.in
 langchain-community==0.3.2
     # via langchain-experimental
-langchain-core==0.3.10
+langchain-core==0.3.24
     # via
     #   langchain
     #   langchain-chroma
@@ -313,9 +314,11 @@ langchain-text-splitters==0.3.0
     # via langchain
 langchainhub==0.1.20
     # via -r ./requirements/requirements.in
-langgraph==0.2.35
+langgraph==0.2.58
     # via -r ./requirements/requirements.in
-langgraph-checkpoint==2.0.1
+langgraph-checkpoint==2.0.8
+    # via langgraph
+langgraph-sdk==0.1.43
     # via langgraph
 langserve==0.3.0
     # via
@@ -454,6 +457,7 @@ orjson==3.10.4
     # via
     #   chromadb
     #   duckduckgo-search
+    #   langgraph-sdk
     #   langserve
     #   langsmith
 overrides==7.7.0
