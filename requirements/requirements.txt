@@ -141,6 +141,8 @@ gitpython==3.1.43
     # via langchain-cli
 google-auth==2.30.0
     # via kubernetes
+google-search-results==2.4.2
+    # via -r ./requirements/requirements.in
 googleapis-common-protos==1.63.1
     # via opentelemetry-exporter-otlp-proto-grpc
 graphviz==0.20.3
@@ -591,6 +593,7 @@ requests==2.31.0
     # via
     #   arxiv
     #   chromadb
+    #   google-search-results
     #   huggingface-hub
     #   jupyterlab-server
     #   kubernetes
