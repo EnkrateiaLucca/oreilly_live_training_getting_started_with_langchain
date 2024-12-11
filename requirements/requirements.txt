@@ -291,7 +291,9 @@ langchain-chroma==0.1.4
 langchain-cli==0.0.24
     # via -r ./requirements/requirements.in
 langchain-community==0.3.2
-    # via langchain-experimental
+    # via
+    #   -r ./requirements/requirements.in
+    #   langchain-experimental
 langchain-core==0.3.24
     # via
     #   langchain
