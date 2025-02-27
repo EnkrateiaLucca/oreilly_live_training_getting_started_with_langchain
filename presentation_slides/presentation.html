@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Introduction to LLM-Based Agents</title>
+    <title>Introduction to LangChain</title>
     <meta charset="utf-8">
     <style>
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -21,7 +21,7 @@
       class: center, middle
       # Getting Started with LangChain
       ### Lucas Soares
-      #### 12-11-2024
+      #### 27-02-2025
 
       ---
 
@@ -111,6 +111,15 @@
       --
 
         - off-the-shelf-chains
+
+      ---
+      class: center, middle
+
+      <h1>
+        <span style="background-color: lightgreen">
+          Whiteboard Explain - Building Blocks of Working with LLMs
+        </span>
+      </h1>
 
       ---
 
@@ -316,6 +325,29 @@
 
       ---
 
+      # Poll Question
+
+      ```text
+      Which statement best captures the primary advantage of using a framework like LangChain for LLM-based applications?
+
+        A. It automatically trains your model without any configuration
+        B. It offers unified abstractions (chains, prompts, parsers) that streamline development
+        C. It focuses solely on deployment, not on application logic
+        D. It restricts user inputs to enhance security
+      ```
+
+      ---
+
+      # Poll Question
+
+      ```text
+      Which best describes the purpose of a "Prompt Template" in LangChain?
+
+        A. A fixed script that cannot be modified once generated
+        B. A dynamic format that reuses prompt structures with variable placeholders
+        C. An external file that stores long sequences of textual data
+        D. A built-in mechanism for parsing JSON responses
+      ```
 
       ---
 
@@ -380,6 +412,29 @@
       - How to build RAG systems with LangChain?
 
       ---
+      class: center, middle
+
+      <h1>
+        <span style="background-color: lightgreen">
+          Whiteboard Explain - RAG Systems
+        </span>
+      </h1>
+
+      ---
+
+      # Poll Question
+
+      ```text
+      What is the primary purpose of embeddings when building LLM-powered document chat systems?
+
+        A. Managing API requests and rate limits
+        B. Turning text into numerical vectors for similarity comparison
+        C. Automatically generating user interface elements
+        D. Serving as a secure authentication method
+      ```
+      
+      ---
+
 
       # LangChain for Chat Over Documents
 
@@ -475,33 +530,26 @@
 
       --
 
-      <img src="../notebooks/assets-resources/agent_loop.svg" width="800">
+      <img src="../notebooks/assets-resources/agent_loop.svg">
 
       ---
-      
-      # Key LangChain Components for Agents
+      # Components of an Agent
 
-      ## Schema
+      ---
 
-      --
+      # Poll Question
 
-      - LangChain provides many abstractions for ease of use
+      ```text
+      Which best describes the “Agent Loop” illustrated in the presentation?
+        
+        A. A direct data-loading pipeline for vector databases
+        B. A continuous decision-making cycle where an LLM decides actions and checks results
+        C. A script for parallel execution of tasks in a single pass
+        D. A framework for chunking documents into smaller sections
+      ```
 
-      --
-
-      - **AgentAction**: Represents the action an agent should take.
-
-      --
-
-      - **AgentFinish**: Represents the final result to return to the user.
-      
-      --
-
-      - **Intermediate Steps**: Previous actions and outputs for the current agent run.
-
-      --
-
-      - **Agent**: Chain responsible for deciding the next step, powered by a language model.
+      ---
+      class: center, middle
 
       <h2>
       <span style="background-color: lightgreen">
@@ -510,7 +558,6 @@
       </h2>
 
       ---
-
 
       # Q&A & Summary
 
@@ -524,13 +571,12 @@
 
       - <span style="color: red"> __Optional Exercise During Q&A__ </span>
 
-        ```
-        Create a simple agent that can create a schedule for you given a table of tasks and deadlines.
-        table format = task | date
-        ```
-
-      --- 
-      # Building Agents with LangGraph
+        
+      Create a simple agent that can create a schedule for you given a table of tasks and deadlines.
+      
+      `table format = task | date`
+        
+      ---
 
       # Understanding Agentic Systems
         
@@ -554,7 +600,7 @@
 
       --
         
-      <img src="../notebooks/assets-resources/agent-loop.png" width="1500">
+      <img src="../notebooks/assets-resources/agent-loop.png" width="800">
 
       <p class="footnote">
           <a href='https://blog.langchain.dev/openais-bet-on-a-cognitive-architecture/'> Explanation of the agent loop in cognitive architectures. </a>
@@ -708,80 +754,14 @@
        Notebook Demo: Introduction to LangGraph 
       </span>
       </h1>
-
-      ---
       
-      ## Nodes
-      In LangGraph, Nodes are the core functional units:
-
-      --
-
-      - **Functionality**: Each Node is a Python function that processes the current State and outputs an updated State.
-
-      --
       
-      - **Execution**: Nodes can run synchronously or asynchronously, and are added to the graph using the `add_node` method.
-
-      --
-      
-      - **Special Nodes**: Includes START and END Nodes to manage the flow of execution in the graph.
-      
-      <p class="footnote">
-          <a href='https://langchain-ai.github.io/langgraph/concepts/low_level/#update-state'> Details on the functionality and structure of Nodes in LangGraph. </a>
-      </p>
-      
-      ---
-      class: center, middle
-
-      <h1>
-      <span style="background-color: lightgreen">
-       Notebook Demo: Nodes in LangGraph 
-      </span>
-      </h1>
-
-      ---
-      
-      ## Edges
-      
-      Edges define the routing logic in LangGraph:
-      
-      - **Types of Edges**:
-
-      --
-        
-        - **Normal Edges**: Direct transitions from one Node to another.
-      
-      --
-        
-        - **Conditional Edges**: Determine the next Node(s) to execute based on a function's output.
-      
-      --
-        
-        - **Entry Points**: Specify which Node to invoke first based on user input.
-      
-      --
-      
-      - **Parallel Execution**: Multiple outgoing edges from a Node can trigger parallel execution of destination Nodes.
-      
-      <p class="footnote">
-          <a href='https://langchain-ai.github.io/langgraph/concepts/low_level/#update-state'> Explanation of Edges and their role in LangGraph. </a>
-      </p>
-      
-      ---
-      class: center, middle
-
-      <h1>
-        <span style="background-color: lightgreen">
-         Notebook Demo: Edges in LangGraph 
-        </span>
-      </h1>
-
 
       ---
 
       # Agent Loop in LangGraph
 
-      - Outline of an basic agent loop in langgraph:
+      - Outline of a basic agent loop in langgraph:
 
       --
 
@@ -798,7 +778,19 @@
         </span>
       </h1>
 
-      
+      ---
+
+      # Q&A & Summary
+
+      - __LangGraph__ is a framework for building agentic applications.
+
+      - __Nodes__ are the core functional units in LangGraph.
+
+      - __Edges__ define the routing logic in LangGraph.
+
+      - __States__ are shared data structures that evolve over time as Nodes execute and pass messages along Edges.
+
+      - __Agent Loop__ is the continuous decision-making process that enables agents to solve complex tasks.
 
       ---
       class: center, middle
@@ -839,7 +831,8 @@
       
       - Use the client SDK to call a LangServe server as if it was a Runnable running locally (or call the HTTP API directly)
 
-      --
+      ---
+      class: center, middle
 
       <h2>
       <span style="background-color: lightgreen">
