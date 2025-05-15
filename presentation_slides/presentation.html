@@ -21,7 +21,7 @@
       class: center, middle
       # Getting Started with LangChain
       ### Lucas Soares
-      #### 27-02-2025
+      #### 15-05-2025
 
       ---
 
@@ -98,7 +98,7 @@
 
       --
 
-      - __LangChain is a framework that facilitates creation of LLM-based applications__
+      - __LangChain framework for developing LLM-based applications__
 
       --
 
@@ -131,17 +131,16 @@
       
       --
 
-      - Abstractions over the LLM APIs like the ChatGPT API
+      - Abstractions over the LLM APIs
 
       --
         
         ```python
-        from langchain_openai import ChatOpenAI
+        from langchain.chat_models import init_chat_model
+        
+        model = init_chat_model("gpt-4o-mini", model_provider="openai")
 
-        chat_model = ChatOpenAI(model="gpt-3.5-turbo-0125")
-
-        output = chat_model.invoke("I am teaching a live-training\
-            about LLMs!")
+        output = model.invoke("I am teaching a live-training about LLMs!")
 
         print(output.content)
         ```
