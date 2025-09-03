@@ -3,9 +3,7 @@
 aiofiles==22.1.0
     # via ypy-websocket
 aiohttp==3.9.5
-    # via
-    #   langchain
-    #   langchain-community
+    # via langchain-community
 aiosignal==1.3.1
     # via aiohttp
 aiosqlite==0.20.0
@@ -168,6 +166,8 @@ httpx==0.27.0
     #   langsmith
     #   ollama
     #   openai
+httpx-sse==0.4.1
+    # via langchain-community
 huggingface-hub==0.23.3
     # via tokenizers
 humanfriendly==10.0
@@ -282,7 +282,7 @@ kiwisolver==1.4.5
     # via matplotlib
 kubernetes==30.1.0
     # via chromadb
-langchain==0.3.3
+langchain==0.3.27
     # via
     #   -r ./requirements/requirements.in
     #   langchain-community
@@ -290,11 +290,11 @@ langchain-chroma==0.1.4
     # via -r ./requirements/requirements.in
 langchain-cli==0.0.24
     # via -r ./requirements/requirements.in
-langchain-community==0.3.2
+langchain-community==0.3.27
     # via
     #   -r ./requirements/requirements.in
     #   langchain-experimental
-langchain-core==0.3.24
+langchain-core==0.3.75
     # via
     #   langchain
     #   langchain-chroma
@@ -312,7 +312,7 @@ langchain-ollama==0.2.0
     # via -r ./requirements/requirements.in
 langchain-openai==0.2.2
     # via -r ./requirements/requirements.in
-langchain-text-splitters==0.3.0
+langchain-text-splitters==0.3.11
     # via langchain
 langchainhub==0.1.20
     # via -r ./requirements/requirements.in
@@ -326,7 +326,7 @@ langserve==0.3.0
     # via
     #   -r ./requirements/requirements.in
     #   langchain-cli
-langsmith==0.1.134
+langsmith==0.4.23
     # via
     #   -r ./requirements/requirements.in
     #   langchain
@@ -399,7 +399,6 @@ numpy==1.26.4
     #   chromadb
     #   contourpy
     #   faiss-cpu
-    #   langchain
     #   langchain-chroma
     #   langchain-community
     #   matplotlib
@@ -476,6 +475,7 @@ packaging==23.2
     #   jupyterlab-server
     #   langchain-core
     #   langchainhub
+    #   langsmith
     #   marshmallow
     #   matplotlib
     #   nbconvert
@@ -676,7 +676,6 @@ sympy==1.12.1
 tenacity==8.3.0
     # via
     #   chromadb
-    #   langchain
     #   langchain-community
     #   langchain-core
 terminado==0.18.1
@@ -798,3 +797,5 @@ ypy-websocket==0.8.4
     # via jupyter-server-ydoc
 zipp==3.19.2
     # via importlib-metadata
+zstandard==0.24.0
+    # via langsmith

@@ -1,5 +1,5 @@
 ipykernel
-langchain>=0.3
+langchain>=0.3.27
 langchain-community
 langchain-openai
 langchain-ollama
