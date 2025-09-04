@@ -4,6 +4,7 @@ langchain-community
 langchain-openai
 langchain-ollama
 langchain_experimental
+tavily-python
 langchain-cli
 langchain_chroma
 langchainhub
