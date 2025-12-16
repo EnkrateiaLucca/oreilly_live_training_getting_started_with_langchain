@@ -1,3 +1,7 @@
+"""
+RAG Methods - LangChain 1.0 Compatible
+Streamlit-based RAG application with document loading and conversational retrieval.
+"""
 import os
 import dotenv
 from time import time

@@ -1,92 +1,173 @@
-# Notebooks for the O'Reilly live-training: "Getting Started with LangChain"
+# Getting Started with LangChain
 
-- [Live-training official website from O'Reilly](https://learning.oreilly.com/live-events/getting-started-with-langchain/0636920098586/0636920098585/)
-# Overview
+[![LangChain](https://img.shields.io/badge/LangChain-1.0+-blue)](https://docs.langchain.com/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-1.0+-green)](https://langchain-ai.github.io/langgraph/)
+[![Python](https://img.shields.io/badge/Python-3.10+-yellow)](https://www.python.org/)
 
+O'Reilly Live Training Course - Getting Started with LangChain
 
-## Notebooks
+**Updated for LangChain 1.0+ (October 2025)**
 
-1. **Getting Started with LangChain**
-   - [Introduction to LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.0-intro-to-langchain.ipynb)
+[Live-training official website from O'Reilly](https://learning.oreilly.com/live-events/getting-started-with-langchain/0636920098586/0636920098585/)
 
-2. **Advanced Query and Dynamic Content**
-   - [QA with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.0-qa-with-langchain.ipynb)
-   - [Querying CSV Data with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.1-langchain-query-csv.ipynb)
-   - [Dynamic Quiz over PDF](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.2-dynamic-quiz-over-pdf.ipynb)
-   - [QA Fully Local](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.3-qa-fully-local.ipynb)
+## Course Overview
 
-3. **Building Intelligent Agents**
-   - [Building LLM Agents with LangChain](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.0-building-llm-agents-with-langchain.ipynb)
-   - [LangChain GitHub Agent Prototype](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.1-langchain-github-agent-prototype.ipynb)
+This course teaches you how to build AI applications using LangChain and LangGraph, the leading frameworks for LLM application development. You'll learn to create agents, build RAG systems, and orchestrate complex AI workflows.
 
-4. **Quick Introduction to LangGraph**
-   - [Quick Introduction to LangGraph](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.0-langgraph-quick-introduction.ipynb)
+## Requirements
 
-5. **Demonstrations and Practical Applications**
-   - [Research Workflows](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/5.0-demos-research-workflows.ipynb)
-
-6. **Additional Resources**
-   - [Live Coding Demo QA PDF](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/live-coding-demo-qa-pdf.ipynb)
-
+- Python 3.10+ (Python 3.9 is no longer supported in LangChain 1.0)
+- OpenAI API key
+- Tavily API key (for search tools)
 
 ## Setup
 
-**Conda**
+### Using Conda
 
-- Install [anaconda](https://www.anaconda.com/download)
-- Create an environment: `conda create -n oreilly-langchain python=3.11`
-- Activate your environment with: `conda activate oreilly-langchain`
-- Install requirements with: `pip install -r requirements.txt`
-- Setup your openai [API key](https://platform.openai.com/)
+1. Install [Anaconda](https://www.anaconda.com/download)
+2. Create an environment: `conda create -n oreilly-langchain python=3.11`
+3. Activate your environment: `conda activate oreilly-langchain`
+4. Install requirements: `pip install -r requirements/requirements.txt`
+5. Setup your OpenAI [API key](https://platform.openai.com/)
 
-**If you're used to Makefiles**
-- Install `uv` with `pip install uv`
-- Run `make all`
-- Activate your environment just like below and you're done
-
-**Pip**
+### Using Pip
 
 1. **Create a Virtual Environment:**
-    Navigate to your project directory. If using Python 3's built-in `venv`:
-    ```bash
-    python -m venv oreilly_env
-    ```
-    If you're using `virtualenv`:
-    ```bash
-    virtualenv oreilly_env
-    ```
+   ```bash
+   python -m venv oreilly_env
+   ```
 
 2. **Activate the Virtual Environment:**
-    - **On Windows:**
-      ```bash
-      .\oreilly_env\Scripts\activate
-      ```
-    - **On macOS and Linux:**
-      ```bash
-      source oreilly_env/bin/activate
-      ```
+   - On macOS/Linux: `source oreilly_env/bin/activate`
+   - On Windows: `.\oreilly_env\Scripts\activate`
 
-3. **Install Dependencies from `requirements.txt`:**
-    ```bash
-    pip install python-dotenv
-    pip install -r requirements.txt
-    ```
+3. **Install Dependencies:**
+   ```bash
+   pip install -r requirements/requirements.txt
+   ```
 
-4. Setup your openai [API key](https://platform.openai.com/)
+4. **Setup Environment Variables:**
+   ```bash
+   export OPENAI_API_KEY="your-api-key"
+   export TAVILY_API_KEY="your-tavily-key"
+   export LANGCHAIN_API_KEY="your-langsmith-key"  # Optional: for tracing
+   ```
 
-Remember to deactivate the virtual environment once you're done by simply typing:
-```bash
-deactivate
+### Using Makefile (with uv)
+
+1. Install `uv` with `pip install uv`
+2. Run `make all`
+
+## Course Structure
+
+### Module 1: Introduction to LangChain 1.0
+**Notebook**: [`notebooks/1.0-intro-to-langchain.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.0-intro-to-langchain.ipynb)
+- LangChain 1.0 architecture overview
+- Chat models and message types
+- Model initialization patterns
+- LCEL (LangChain Expression Language)
+
+### Module 2: Runnable Interface Deep Dive
+**Notebook**: [`notebooks/1.1-intro-to-runnable-interface.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/1.1-intro-to-runnable-interface.ipynb)
+- RunnableLambda, RunnableSequence, RunnableParallel
+- RunnablePassthrough for data manipulation
+- Building complex chains
+
+### Module 3: Building Agents with LangChain 1.0
+**Notebook**: [`notebooks/3.0-building-llm-agents-with-langchain.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.0-building-llm-agents-with-langchain.ipynb)
+- The new `create_agent` API (replaces AgentExecutor)
+- Tool definition with `@tool` decorator
+- Structured output with agents
+- Streaming agent responses
+- Memory and checkpointing
+
+### Module 4: LangGraph Fundamentals
+**Notebook**: [`notebooks/4.0-langgraph-quick-introduction.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.0-langgraph-quick-introduction.ipynb)
+- StateGraph basics
+- Nodes, edges, and conditional routing
+- Building stateful applications
+- Checkpointing and memory
+
+### Module 5: RAG with LangChain and LangGraph
+**Notebook**: [`notebooks/2.0-simple-rag-langchain-langgraph.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/2.0-simple-rag-langchain-langgraph.ipynb)
+- Document loading and splitting
+- Vector stores and embeddings
+- Retrieval chains
+- Conversational RAG
+
+### Module 6: Agents with LangGraph
+**Notebook**: [`notebooks/3.2-langchain-agent-with-langgraph.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/3.2-langchain-agent-with-langgraph.ipynb)
+- Custom agent workflows
+- Tool integration
+- When to use `create_agent` vs custom StateGraph
+
+### Supplementary Materials
+- [`notebooks/4.0-structured-research-report-generation.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/4.0-structured-research-report-generation.ipynb) - Structured output patterns
+- [`notebooks/5.0-demos-research-workflows.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/5.0-demos-research-workflows.ipynb) - Research workflow examples
+- [`notebooks/intro-rag-basics.ipynb`](https://colab.research.google.com/github/EnkrateiaLucca/oreilly_live_training_getting_started_with_langchain/blob/main/notebooks/intro-rag-basics.ipynb) - RAG fundamentals
+
+## Key Changes in LangChain 1.0
+
+### Agent API
+```python
+# OLD (deprecated)
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+agent = create_tool_calling_agent(llm, tools, prompt)
+executor = AgentExecutor(agent=agent, tools=tools)
+result = executor.invoke({"input": "..."})
+
+# NEW (LangChain 1.0)
+from langchain.agents import create_agent
+agent = create_agent(
+    model="openai:gpt-4o",  # String format
+    tools=tools,
+    prompt="You are a helpful assistant.",
+)
+result = agent.invoke({"messages": [{"role": "user", "content": "..."}]})
 ```
 
-## Setup your .env file
+### Search Tools
+```python
+# OLD (deprecated)
+from langchain_community.tools.tavily_search import TavilySearchResults
 
-- Change the `.env.example` file to `.env` and add your OpenAI API key.
+# NEW (LangChain 1.0)
+from langchain_tavily import TavilySearch
+search = TavilySearch(max_results=3)
+```
 
-## To use this Environment with Jupyter Notebooks:
+### Import Changes
+| Old Import | New Import |
+|------------|------------|
+| `langchain.chat_models.ChatOpenAI` | `langchain_openai.ChatOpenAI` |
+| `langgraph.prebuilt.create_react_agent` | `langchain.agents.create_agent` |
+| `langchain.hub` | `langchain_classic.hub` (for legacy prompts) |
 
-```python3 -m ipykernel install --user --name=oreilly-langchain```
+## Scripts
 
-## Official Training Website
+- `scripts/jira-agent.py` - Jira management agent using LangChain 1.0
+- `scripts/rag_methods.py` - RAG utilities for Streamlit apps
+- `scripts/langchain-app.py` - LangServe example
+- `scripts/langchain-structured-output-ui.py` - Structured output demo
 
-For more information about the live-training, visit the [official website](https://learning.oreilly.com/live-events/getting-started-with-langchain/0636920098586/0636920098585/).
+## Jupyter Kernel Setup
+
+To use this environment with Jupyter Notebooks:
+```bash
+python -m ipykernel install --user --name=oreilly-langchain
+```
+
+## Resources
+
+- [LangChain Documentation](https://docs.langchain.com/)
+- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
+- [LangChain 1.0 Release Blog](https://blog.langchain.com/langchain-langgraph-1dot0/)
+- [LangSmith](https://smith.langchain.com/) - For tracing and debugging
+
+## Archived Content
+
+Legacy notebooks from pre-v1.0 courses have been moved to `archive/pre-v1/`.
+
+## License
+
+This project is licensed under the MIT License.

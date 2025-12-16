@@ -1,4 +1,8 @@
-# source: https://python.langchain.com/docs/tutorials/llm_chain/#:~:text=Server%E2%80%8B,with%20langserve.add_routes
+"""
+LangChain LangServe App - LangChain 1.0 Compatible
+A simple API server using LangChain's LCEL and LangServe.
+Source: https://python.langchain.com/docs/tutorials/llm_chain/
+"""
 #!/usr/bin/env python
 from fastapi import FastAPI
 from langchain_core.prompts import ChatPromptTemplate

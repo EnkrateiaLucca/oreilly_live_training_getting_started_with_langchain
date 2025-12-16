@@ -1,3 +1,7 @@
+"""
+LangChain Structured Output UI - LangChain 1.0 Compatible
+Demonstrates using with_structured_output() for parsing raw text into Pydantic models.
+"""
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
