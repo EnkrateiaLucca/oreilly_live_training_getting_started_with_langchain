@@ -19,6 +19,7 @@ from langchain_chroma.vectorstores import Chroma
 from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain.tools import tool
 from langchain.agents import create_agent
+from chromadb.config import Settings
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -35,6 +36,14 @@ COLLECTION_NAME = "superhero-collection"
 # ─────────────────────────────────────────────────────────────────────────────
 # Vector Store Setup (cached to avoid reloading on each interaction)
 # ─────────────────────────────────────────────────────────────────────────────
+# ChromaDB settings to allow cross-thread access (required for Streamlit)
+CHROMA_SETTINGS = Settings(
+    anonymized_telemetry=False,
+    allow_reset=True,
+    is_persistent=True
+)
+
+
 @st.cache_resource
 def load_vector_store():
     """Load or create the ChromaDB vector store for superhero data."""
@@ -45,7 +54,8 @@ def load_vector_store():
         vector_store = Chroma(
             collection_name=COLLECTION_NAME,
             embedding_function=embeddings,
-            persist_directory=str(PERSIST_DIRECTORY)
+            persist_directory=str(PERSIST_DIRECTORY),
+            client_settings=CHROMA_SETTINGS
         )
     else:
         # Load documents and create new vector store
@@ -54,7 +64,8 @@ def load_vector_store():
             documents=docs,
             embedding=embeddings,
             collection_name=COLLECTION_NAME,
-            persist_directory=str(PERSIST_DIRECTORY)
+            persist_directory=str(PERSIST_DIRECTORY),
+            client_settings=CHROMA_SETTINGS
         )
 
     return vector_store
