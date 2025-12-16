@@ -1,0 +1,51 @@
+id,employee_name,date,project,task_description,hours_worked,billable,hourly_rate,client
+1,Alice Johnson,2024-11-01,Website Redesign,Frontend development - homepage,8.0,true,150,Acme Corp
+2,Alice Johnson,2024-11-02,Website Redesign,Frontend development - contact page,7.5,true,150,Acme Corp
+3,Bob Smith,2024-11-01,Mobile App,API integration,6.0,true,175,TechStart Inc
+4,Bob Smith,2024-11-01,Internal Tools,Team meeting,1.5,false,0,Internal
+5,Carol Davis,2024-11-01,Data Pipeline,ETL script development,8.0,true,160,DataFlow LLC
+6,Alice Johnson,2024-11-03,Website Redesign,Bug fixes and testing,4.0,true,150,Acme Corp
+7,Alice Johnson,2024-11-03,Training,New hire onboarding,3.0,false,0,Internal
+8,Bob Smith,2024-11-02,Mobile App,Push notification system,8.0,true,175,TechStart Inc
+9,Carol Davis,2024-11-02,Data Pipeline,Database optimization,6.5,true,160,DataFlow LLC
+10,Carol Davis,2024-11-02,Documentation,Technical docs update,1.5,false,0,Internal
+11,David Lee,2024-11-01,E-commerce Platform,Payment gateway integration,8.0,true,165,ShopMax
+12,David Lee,2024-11-02,E-commerce Platform,Checkout flow optimization,7.0,true,165,ShopMax
+13,David Lee,2024-11-02,Internal Tools,Code review,1.0,false,0,Internal
+14,Alice Johnson,2024-11-04,Website Redesign,Responsive design implementation,8.0,true,150,Acme Corp
+15,Bob Smith,2024-11-03,Mobile App,User authentication module,8.0,true,175,TechStart Inc
+16,Carol Davis,2024-11-03,Data Pipeline,Data validation scripts,5.0,true,160,DataFlow LLC
+17,Carol Davis,2024-11-03,Client Meeting,Project status review,2.0,true,160,DataFlow LLC
+18,David Lee,2024-11-03,E-commerce Platform,Inventory management system,8.0,true,165,ShopMax
+19,Emily Chen,2024-11-01,Marketing Dashboard,Chart component development,8.0,true,155,BrandCo
+20,Emily Chen,2024-11-02,Marketing Dashboard,Data visualization features,7.0,true,155,BrandCo
+21,Emily Chen,2024-11-02,Training,React workshop attendance,1.0,false,0,Internal
+22,Alice Johnson,2024-11-05,Website Redesign,SEO optimization,6.0,true,150,Acme Corp
+23,Alice Johnson,2024-11-05,Client Meeting,Design review with stakeholders,2.0,true,150,Acme Corp
+24,Bob Smith,2024-11-04,Mobile App,Offline mode implementation,8.0,true,175,TechStart Inc
+25,Carol Davis,2024-11-04,Data Pipeline,Error handling improvements,8.0,true,160,DataFlow LLC
+26,David Lee,2024-11-04,E-commerce Platform,Product search functionality,6.0,true,165,ShopMax
+27,David Lee,2024-11-04,Documentation,API documentation,2.0,false,0,Internal
+28,Emily Chen,2024-11-03,Marketing Dashboard,Export to PDF feature,8.0,true,155,BrandCo
+29,Emily Chen,2024-11-04,Marketing Dashboard,User permissions system,8.0,true,155,BrandCo
+30,Alice Johnson,2024-11-06,CRM Integration,Salesforce connector,8.0,true,150,Acme Corp
+31,Bob Smith,2024-11-05,Mobile App,Performance optimization,5.0,true,175,TechStart Inc
+32,Bob Smith,2024-11-05,Internal Tools,Sprint planning,3.0,false,0,Internal
+33,Carol Davis,2024-11-05,Data Pipeline,Unit test coverage,8.0,true,160,DataFlow LLC
+34,David Lee,2024-11-05,E-commerce Platform,Order tracking system,8.0,true,165,ShopMax
+35,Emily Chen,2024-11-05,Marketing Dashboard,Real-time data updates,8.0,true,155,BrandCo
+36,Alice Johnson,2024-11-07,CRM Integration,Data synchronization,7.0,true,150,Acme Corp
+37,Alice Johnson,2024-11-07,Training,Security awareness training,1.0,false,0,Internal
+38,Bob Smith,2024-11-06,Mobile App,App store submission prep,8.0,true,175,TechStart Inc
+39,Carol Davis,2024-11-06,Analytics Platform,Dashboard wireframes,4.0,true,160,InsightHub
+40,Carol Davis,2024-11-06,Analytics Platform,Initial setup,4.0,true,160,InsightHub
+41,David Lee,2024-11-06,E-commerce Platform,Customer reviews feature,8.0,true,165,ShopMax
+42,Emily Chen,2024-11-06,Marketing Dashboard,Email report scheduling,6.0,true,155,BrandCo
+43,Emily Chen,2024-11-06,Client Meeting,Feature prioritization,2.0,true,155,BrandCo
+44,Alice Johnson,2024-11-08,CRM Integration,Contact import feature,8.0,true,150,Acme Corp
+45,Bob Smith,2024-11-07,Support System,Ticket routing logic,8.0,true,175,HelpDesk Pro
+46,Carol Davis,2024-11-07,Analytics Platform,Data ingestion pipeline,8.0,true,160,InsightHub
+47,David Lee,2024-11-07,E-commerce Platform,Wishlist functionality,8.0,true,165,ShopMax
+48,Emily Chen,2024-11-07,Marketing Dashboard,A/B test integration,8.0,true,155,BrandCo
+49,Alice Johnson,2024-11-09,CRM Integration,Lead scoring algorithm,6.0,true,150,Acme Corp
+50,Alice Johnson,2024-11-09,Documentation,User guide creation,2.0,false,0,Internal

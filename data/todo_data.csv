@@ -1,0 +1,36 @@
+id,task_title,description,assignee,priority,status,created_date,deadline,estimated_hours,tags,project
+1,Complete API documentation,Write comprehensive API docs for the payment module,Alice Johnson,high,in_progress,2024-11-01,2024-11-15,8,documentation;api,E-commerce Platform
+2,Fix login bug,Users unable to login with special characters in password,Bob Smith,critical,in_progress,2024-11-02,2024-11-05,3,bug;authentication,Mobile App
+3,Design new dashboard,Create mockups for analytics dashboard redesign,Carol Davis,medium,pending,2024-11-03,2024-11-20,12,design;ui,Analytics Platform
+4,Optimize database queries,Improve slow queries on user search endpoint,David Lee,high,pending,2024-11-04,2024-11-12,6,performance;database,E-commerce Platform
+5,Set up CI/CD pipeline,Configure GitHub Actions for automated testing,Emily Chen,medium,completed,2024-10-25,2024-11-01,10,devops;automation,Marketing Dashboard
+6,Write unit tests for cart,Achieve 80% test coverage for shopping cart module,Alice Johnson,medium,pending,2024-11-05,2024-11-18,8,testing;quality,E-commerce Platform
+7,Implement dark mode,Add dark theme support across all pages,Bob Smith,low,pending,2024-11-06,2024-11-30,16,ui;feature,Mobile App
+8,Security audit,Review authentication flow for vulnerabilities,Carol Davis,critical,in_progress,2024-11-01,2024-11-08,12,security;audit,Data Pipeline
+9,Migrate to PostgreSQL,Move from MySQL to PostgreSQL for better JSON support,David Lee,high,pending,2024-11-07,2024-12-01,20,database;migration,Analytics Platform
+10,Create onboarding flow,Design and implement new user onboarding wizard,Emily Chen,medium,pending,2024-11-08,2024-11-25,14,feature;ux,Marketing Dashboard
+11,Update dependencies,Upgrade all npm packages to latest stable versions,Alice Johnson,low,completed,2024-10-20,2024-10-30,4,maintenance;security,Website Redesign
+12,Implement search filters,Add advanced filtering to product search,Bob Smith,high,in_progress,2024-11-04,2024-11-14,10,feature;search,E-commerce Platform
+13,Create error logging system,Set up centralized error tracking with Sentry,Carol Davis,medium,pending,2024-11-09,2024-11-22,6,monitoring;devops,Data Pipeline
+14,Refactor user service,Break down monolithic user service into microservices,David Lee,high,pending,2024-11-10,2024-12-15,30,architecture;refactoring,E-commerce Platform
+15,Add export to Excel,Allow users to export reports to Excel format,Emily Chen,medium,completed,2024-10-28,2024-11-10,5,feature;export,Marketing Dashboard
+16,Fix memory leak,Investigate and fix memory leak in image processing,Alice Johnson,critical,in_progress,2024-11-08,2024-11-10,8,bug;performance,Website Redesign
+17,Implement rate limiting,Add rate limiting to public API endpoints,Bob Smith,high,pending,2024-11-09,2024-11-16,6,security;api,Mobile App
+18,Create admin panel,Build admin interface for content management,Carol Davis,medium,pending,2024-11-10,2024-12-05,24,feature;admin,Analytics Platform
+19,Write integration tests,Create end-to-end tests for checkout flow,David Lee,medium,pending,2024-11-11,2024-11-28,12,testing;quality,E-commerce Platform
+20,Optimize images,Implement lazy loading and image compression,Emily Chen,low,pending,2024-11-12,2024-11-30,4,performance;optimization,Marketing Dashboard
+21,Add two-factor auth,Implement 2FA using authenticator apps,Alice Johnson,high,pending,2024-11-10,2024-11-24,10,security;authentication,Website Redesign
+22,Create mobile notifications,Implement push notification system,Bob Smith,medium,completed,2024-10-15,2024-11-05,8,feature;mobile,Mobile App
+23,Build reporting module,Create automated weekly report generation,Carol Davis,medium,in_progress,2024-11-05,2024-11-19,14,feature;analytics,Analytics Platform
+24,Implement caching layer,Add Redis caching for frequently accessed data,David Lee,high,pending,2024-11-12,2024-11-22,8,performance;caching,E-commerce Platform
+25,Design email templates,Create responsive email templates for notifications,Emily Chen,low,pending,2024-11-13,2024-12-01,6,design;email,Marketing Dashboard
+26,Fix pagination bug,Pagination not working correctly on search results,Alice Johnson,medium,in_progress,2024-11-11,2024-11-13,2,bug;ui,Website Redesign
+27,Add social login,Implement Google and GitHub OAuth,Bob Smith,medium,pending,2024-11-14,2024-11-28,8,feature;authentication,Mobile App
+28,Create data backup system,Implement automated daily backups to S3,Carol Davis,high,pending,2024-11-13,2024-11-20,6,devops;backup,Data Pipeline
+29,Implement webhooks,Add webhook support for external integrations,David Lee,medium,pending,2024-11-14,2024-12-10,12,feature;api,E-commerce Platform
+30,Add localization support,Implement i18n for Spanish and French,Emily Chen,medium,pending,2024-11-15,2024-12-15,18,feature;i18n,Marketing Dashboard
+31,Performance testing,Run load tests and document bottlenecks,Alice Johnson,medium,pending,2024-11-14,2024-11-25,8,testing;performance,Website Redesign
+32,Fix session timeout,Sessions expiring too quickly on mobile,Bob Smith,high,in_progress,2024-11-12,2024-11-15,4,bug;session,Mobile App
+33,Create API versioning,Implement versioned API endpoints,Carol Davis,medium,pending,2024-11-15,2024-12-01,10,api;architecture,Analytics Platform
+34,Add payment retry logic,Implement automatic retry for failed payments,David Lee,critical,pending,2024-11-13,2024-11-17,6,feature;payments,E-commerce Platform
+35,Build user feedback system,Create in-app feedback collection widget,Emily Chen,low,pending,2024-11-16,2024-12-10,8,feature;ux,Marketing Dashboard
