@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Getting Started with LangChain 1.0+ — Cheatsheet</title>
+    <style>
+        /* WeasyPrint-optimized print version
+           @page margin handles all spacing — body has NO padding */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 14mm;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 9.5pt;
+            line-height: 1.45;
+            color: #000;
+            background: #fff;
+        }
+
+        /* Major section wrapper — keeps heading with its content */
+        .major-section {
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 14pt 20pt 10pt 20pt;
+            margin-bottom: 12pt;
+        }
+
+        .page-header h1 {
+            font-size: 22pt;
+            font-weight: 700;
+            margin-bottom: 4pt;
+            letter-spacing: 1pt;
+            color: #fff;
+        }
+
+        .page-header .subtitle {
+            font-size: 11pt;
+            color: #a8d8ea;
+            margin-bottom: 4pt;
+        }
+
+        .page-header .meta {
+            font-size: 8.5pt;
+            color: #aabbcc;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 12pt;
+            font-weight: 700;
+            margin: 12pt 0 8pt 0;
+            padding: 5pt 10pt;
+            background: #1a1a2e;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.8pt;
+            break-after: avoid;
+            page-break-after: avoid;
+        }
+
+        .section-title.blue { background: #0f3460; }
+        .section-title.teal { background: #1b4f72; }
+        .section-title.green { background: #1e5631; }
+        .section-title.orange { background: #7d3c00; }
+
+        .subsection-title {
+            font-size: 10pt;
+            font-weight: 700;
+            margin: 8pt 0 5pt 0;
+            padding: 4pt 8pt;
+            background: #e8ecf0;
+            color: #1a1a2e;
+            border-left: 4px solid #0f3460;
+            break-after: avoid;
+            page-break-after: avoid;
+        }
+
+        /* Grid Layouts — WeasyPrint 68 supports CSS Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8pt;
+            margin-bottom: 10pt;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8pt;
+            margin-bottom: 10pt;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6pt;
+            margin-bottom: 10pt;
+        }
+
+        /* Cards */
+        .card {
+            border: 1.5px solid #1a1a2e;
+            padding: 8pt;
+            background: #fff;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .card-title {
+            font-size: 10pt;
+            font-weight: 700;
+            margin-bottom: 6pt;
+            padding-bottom: 4pt;
+            border-bottom: 1px solid #ccc;
+            color: #1a1a2e;
+        }
+
+        .card-content {
+            font-size: 8.5pt;
+        }
+
+        .card-light {
+            border: 1.5px solid #c0c8d0;
+            background: #f7f9fb;
+            padding: 8pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        /* Icon Boxes */
+        .icon-box {
+            text-align: center;
+            border: 1.5px solid #1a1a2e;
+            padding: 10pt 6pt;
+            background: #fff;
+            break-inside: avoid;
+        }
+
+        .icon-placeholder {
+            width: 30pt;
+            height: 30pt;
+            background: #0f3460;
+            margin: 0 auto 6pt auto;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14pt;
+            text-align: center;
+            line-height: 30pt;
+        }
+
+        .icon-label {
+            font-weight: 700;
+            font-size: 8pt;
+            color: #1a1a2e;
+        }
+
+        /* Code Blocks */
+        .code-card {
+            border: 1.5px solid #1a1a2e;
+            background: #fff;
+            padding: 0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .code-card-header {
+            background: #1a1a2e;
+            color: #a8d8ea;
+            padding: 4pt 8pt;
+            font-weight: 700;
+            font-size: 8.5pt;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-card pre {
+            margin: 0;
+            padding: 8pt;
+            font-family: 'Courier New', 'Courier', monospace;
+            font-size: 7.5pt;
+            line-height: 1.4;
+            background: #f4f6f8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 8pt;
+            background: #e8ecf0;
+            padding: 1pt 3pt;
+        }
+
+        .code-card pre code {
+            background: none;
+            padding: 0;
+            font-size: 7.5pt;
+        }
+
+        /* Tables */
+        .table-card {
+            border: 1.5px solid #1a1a2e;
+            background: #fff;
+            padding: 0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 8pt;
+        }
+
+        .table-card-header {
+            background: #0f3460;
+            color: #fff;
+            padding: 5pt 8pt;
+            font-weight: 700;
+            font-size: 9.5pt;
+        }
+
+        .table-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8pt;
+        }
+
+        .table-card th {
+            background: #e8ecf0;
+            color: #1a1a2e;
+            font-weight: 700;
+            text-align: left;
+            padding: 5pt 7pt;
+            border-bottom: 1.5px solid #1a1a2e;
+        }
+
+        .table-card td {
+            padding: 4pt 7pt;
+            border-bottom: 1px solid #dde2e8;
+            vertical-align: top;
+        }
+
+        .table-card tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            border: 1.5px solid #aab;
+            border-left: 4px solid #0f3460;
+            padding: 8pt;
+            margin: 8pt 0;
+            background: #f0f4f8;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .info-box-title {
+            font-weight: 700;
+            font-size: 9.5pt;
+            margin-bottom: 4pt;
+            color: #0f3460;
+        }
+
+        /* Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8pt;
+            margin: 8pt 0;
+        }
+
+        .comparison-item {
+            border: 1.5px solid #1a1a2e;
+            padding: 8pt;
+            background: #fff;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .comparison-header {
+            font-weight: 700;
+            font-size: 10pt;
+            margin-bottom: 6pt;
+            padding-bottom: 4pt;
+            border-bottom: 1.5px solid #1a1a2e;
+            text-align: center;
+            color: #0f3460;
+        }
+
+        /* Step Container — flex for WeasyPrint 68 */
+        .step-container {
+            display: flex;
+            gap: 6pt;
+            margin: 8pt 0;
+        }
+
+        .step {
+            flex: 1;
+            border: 1.5px solid #1a1a2e;
+            padding: 8pt;
+            text-align: center;
+            background: #fff;
+            break-inside: avoid;
+        }
+
+        /* WeasyPrint: no flex inside step-number — use line-height centering */
+        .step-number {
+            background: #0f3460;
+            color: #fff;
+            width: 22pt;
+            height: 22pt;
+            margin: 0 auto 6pt auto;
+            font-weight: 700;
+            font-size: 11pt;
+            text-align: center;
+            line-height: 22pt;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 9pt;
+            margin-bottom: 4pt;
+            color: #1a1a2e;
+        }
+
+        .step-content {
+            font-size: 8pt;
+            color: #333;
+        }
+
+        /* Key Points */
+        .key-points {
+            border: 2px solid #1a1a2e;
+            background: #f7f9fb;
+            padding: 10pt;
+            margin: 8pt 0;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .key-points-title {
+            font-weight: 700;
+            font-size: 11pt;
+            margin-bottom: 8pt;
+            color: #1a1a2e;
+            text-transform: uppercase;
+        }
+
+        .key-points ul {
+            margin-left: 14pt;
+        }
+
+        .key-points li {
+            margin-bottom: 4pt;
+            font-size: 9pt;
+        }
+
+        /* Lists */
+        .card ul, .card ol, .card-light ul, .card-light ol {
+            margin-left: 13pt;
+        }
+
+        .card li, .card-light li {
+            margin-bottom: 3pt;
+            font-size: 8.5pt;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 16pt;
+            padding-top: 8pt;
+            border-top: 2px solid #1a1a2e;
+            text-align: center;
+            font-size: 7.5pt;
+            color: #666;
+        }
+
+        .mb-small { margin-bottom: 6pt; }
+        .mb-medium { margin-bottom: 10pt; }
+        p { margin-bottom: 5pt; font-size: 8.5pt; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <div class="page-header">
+        <h1>Getting Started with LangChain 1.0+</h1>
+        <div class="subtitle">O'Reilly Live Training — Build AI Agents with LangChain &amp; LangGraph</div>
+        <div class="meta">Python 3.11–3.13 &nbsp;|&nbsp; LangChain 1.0+ &nbsp;|&nbsp; LangGraph 1.0+ &nbsp;|&nbsp; By Lucas Soares</div>
+    </div>
+
+    <!-- ===== COURSE AT A GLANCE ===== -->
+    <div class="major-section">
+        <div class="section-title blue">Course at a Glance</div>
+
+        <div class="grid-4">
+            <div class="icon-box">
+                <div class="icon-placeholder">1</div>
+                <div class="icon-label">Fundamentals</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-placeholder">2</div>
+                <div class="icon-label">Structured Output</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-placeholder">3</div>
+                <div class="icon-label">RAG</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-placeholder">&#9733;</div>
+                <div class="icon-label">Demo Deploy</div>
+            </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:10pt;">
+            <div class="card-light">
+                <div class="card-title">Quick Setup</div>
+                <div class="card-content">
+                    <pre style="font-family:'Courier New',monospace;font-size:7.5pt;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;overflow-wrap:break-word;background:none;padding:0;">git clone &lt;repo&gt;
+cp .env.example .env   # add API keys
+uv sync
+uv run jupyter lab
+make demo              # start agent server</pre>
+                </div>
+            </div>
+            <div class="card-light">
+                <div class="card-title">Required API Keys (.env)</div>
+                <div class="card-content">
+                    <ul>
+                        <li><code>OPENAI_API_KEY</code> — LLM calls</li>
+                        <li><code>TAVILY_API_KEY</code> — web search tools</li>
+                        <li><code>LANGCHAIN_API_KEY</code> — LangSmith tracing (optional)</li>
+                        <li><code>LANGCHAIN_TRACING_V2=true</code> — enable tracing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODULE 1: FUNDAMENTALS ===== -->
+    <div class="section-title">Module 1 — The 6 Building Blocks</div>
+
+    <!-- Block 1: Agents -->
+    <div class="major-section">
+        <div class="subsection-title">1. Agents — <code>create_agent()</code> — The Central API</div>
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">create_agent() signature</div>
+                <pre><code>from langchain.agents import create_agent
+
+agent = create_agent(
+    model,            # "provider:model" or ChatModel
+    tools=None,       # list of @tool functions
+    system_prompt=None,
+    checkpointer=None,  # for memory
+    response_format=None,  # for structured output
+)
+
+# Invoke
+result = agent.invoke({"messages": "Hello"})
+result["messages"][-1].pretty_print()
+
+# Minimal (3 lines)
+agent = create_agent(model="openai:gpt-4o-mini", tools=[])
+result = agent.invoke({"messages": "What is LangChain?"})</code></pre>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">Agent with Tools</div>
+                <pre><code>from langchain_tavily import TavilySearch
+
+search = TavilySearch(max_results=5)
+
+agent = create_agent(
+    model="openai:gpt-4o-mini",
+    tools=[search],
+    system_prompt="You are a helpful assistant.",
+)
+
+# Stream agent steps
+for step in agent.stream(
+    {"messages": "What's new in AI?"},
+    stream_mode="values",
+):
+    step["messages"][-1].pretty_print()
+    print("---")</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block 2: Models -->
+    <div class="major-section">
+        <div class="subsection-title">2. Models — <code>init_chat_model()</code> — Universal Factory</div>
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">init_chat_model() — 3 invocation modes</div>
+                <pre><code>from langchain.chat_models import init_chat_model
+
+model = init_chat_model("openai:gpt-4o-mini")
+
+# invoke() — single response
+r = model.invoke("Why is the sky blue?")
+print(r.content)
+
+# stream() — token by token
+for chunk in model.stream("Tell me a joke"):
+    print(chunk.content, end="", flush=True)
+
+# batch() — parallel requests
+responses = model.batch(["Q1?", "Q2?", "Q3?"])
+for r in responses:
+    print(r.content)</code></pre>
+            </div>
+            <div class="table-card">
+                <div class="table-card-header">Provider String Formats</div>
+                <table>
+                    <thead><tr><th>Provider</th><th>String Format</th><th>Package</th></tr></thead>
+                    <tbody>
+                        <tr><td>OpenAI</td><td><code>"openai:gpt-4o-mini"</code></td><td>langchain-openai</td></tr>
+                        <tr><td>Anthropic</td><td><code>"anthropic:claude-sonnet-4-6"</code></td><td>langchain-anthropic</td></tr>
+                        <tr><td>Google</td><td><code>"google_genai:gemini-2.0-flash"</code></td><td>langchain-google-genai</td></tr>
+                        <tr><td>Ollama</td><td><code>"ollama:gemma3"</code></td><td>langchain-ollama</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block 3: Messages -->
+    <div class="major-section">
+        <div class="subsection-title">3. Messages — 4 Types</div>
+        <div class="grid-2">
+            <div class="table-card">
+                <div class="table-card-header">Message Types</div>
+                <table>
+                    <thead><tr><th>Type</th><th>Role</th><th>Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>SystemMessage</code></td><td>system</td><td>Sets model behavior/persona</td></tr>
+                        <tr><td><code>HumanMessage</code></td><td>user</td><td>User input</td></tr>
+                        <tr><td><code>AIMessage</code></td><td>assistant</td><td>Model response</td></tr>
+                        <tr><td><code>ToolMessage</code></td><td>tool</td><td>Tool execution result</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">Messages usage</div>
+                <pre><code>from langchain_core.messages import (
+    SystemMessage, HumanMessage, AIMessage
+)
+
+# Object format
+msgs = [
+    SystemMessage("You are a pirate."),
+    HumanMessage("What is ML?"),
+]
+r = model.invoke(msgs)
+
+# Dict format (OpenAI-compatible)
+r = model.invoke([
+    {"role": "system", "content": "..."},
+    {"role": "user", "content": "..."},
+])
+
+# Multimodal (image)
+msg = HumanMessage(content=[
+    {"type": "text", "text": "Describe this."},
+    {"type": "image_url",
+     "image_url": {"url": "https://..."}},
+])</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block 4: Tools -->
+    <div class="major-section">
+        <div class="subsection-title">4. Tools — <code>@tool</code> Decorator — Two Mandatory Rules: Type Hints + Docstrings</div>
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">Basic @tool + Pydantic schema</div>
+                <pre><code>from langchain_core.tools import tool
+from pydantic import BaseModel, Field
+from typing import Literal
+
+@tool
+def calculate(expression: str) -> str:
+    """Evaluate a math expression like '2 + 2'."""
+    return str(eval(expression))
+
+# Pydantic for complex inputs
+class WeatherQuery(BaseModel):
+    location: str = Field(description="City name")
+    units: Literal["celsius","fahrenheit"] = "celsius"
+
+@tool(args_schema=WeatherQuery)
+def get_weather(location: str, units: str) -> str:
+    """Get current weather for a location."""
+    return f"Weather in {location}: 22 C, Sunny"
+
+# Check tool schema
+print(calculate.name)
+print(calculate.description)</code></pre>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">Dependency injection with ToolRuntime</div>
+                <pre><code>from dataclasses import dataclass
+from langchain.tools import tool, ToolRuntime
+
+@dataclass
+class UserContext:
+    user_name: str
+    role: str
+
+USER_DB = {
+    "alice": {"balance": 5000, "plan": "premium"},
+}
+
+@tool
+def get_account_info(
+    runtime: ToolRuntime[UserContext]
+) -> str:
+    """Get the current user's account info."""
+    name = runtime.context.user_name
+    info = USER_DB.get(name, {})
+    return (f"User: {name} | "
+            f"Balance: ${info.get('balance')}")
+
+# context injected at runtime — not exposed to LLM
+# agent = create_agent(..., context_schema=UserContext)</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block 5: Memory -->
+    <div class="major-section">
+        <div class="subsection-title">5. Short-Term Memory — <code>InMemorySaver</code> + <code>thread_id</code></div>
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">Memory with checkpointer</div>
+                <pre><code>from langgraph.checkpoint.memory import InMemorySaver
+
+agent = create_agent(
+    model="openai:gpt-4o-mini",
+    tools=[search],
+    checkpointer=InMemorySaver(),
+)
+
+config = {"configurable": {"thread_id": "session-1"}}
+
+# Turn 1 — introduce yourself
+agent.invoke(
+    {"messages": "My name is Lucas."},
+    config,
+)
+
+# Turn 2 — agent remembers!
+result = agent.invoke(
+    {"messages": "What is my name?"},
+    config,         # same thread_id = same memory
+)
+# "Your name is Lucas."
+
+# Fresh memory with new thread_id
+config2 = {"configurable": {"thread_id": "session-2"}}
+# no knowledge of Lucas</code></pre>
+            </div>
+            <div class="card">
+                <div class="card-title">Memory Key Facts</div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>Thread isolation:</strong> each <code>thread_id</code> is fully independent</li>
+                        <li><strong>InMemorySaver:</strong> in-process only, resets on restart</li>
+                        <li><strong>Persistent memory:</strong> use <code>SqliteSaver</code> or <code>PostgresSaver</code> for production</li>
+                        <li><strong>Config is required:</strong> pass <code>config</code> as 2nd arg to <code>invoke()</code> / <code>stream()</code></li>
+                        <li><strong>LangGraph dev:</strong> provides persistence automatically — no checkpointer needed in demo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block 6: Streaming -->
+    <div class="major-section">
+        <div class="subsection-title">6. Streaming — 3 Modes</div>
+        <div class="grid-2">
+            <div class="table-card" style="margin-bottom:0;">
+                <div class="table-card-header">Stream Mode Comparison</div>
+                <table>
+                    <thead><tr><th>Mode</th><th>Output</th><th>Best For</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>"values"</code></td><td>Full state after each step</td><td>Debug / track reasoning</td></tr>
+                        <tr><td><code>"messages"</code></td><td><code>(token, metadata)</code> tuples</td><td>Real-time chatbot UX</td></tr>
+                        <tr><td><code>"custom"</code></td><td>User-defined data</td><td>Progress updates from tools</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">All 3 stream modes</div>
+                <pre><code># Mode 1: values
+for step in agent.stream(
+    {"messages": "..."}, stream_mode="values"
+):
+    step["messages"][-1].pretty_print()
+
+# Mode 2: messages (chatbot UX)
+for token, _ in agent.stream(
+    {"messages": "..."}, stream_mode="messages"
+):
+    if token.content:
+        print(token.content, end="", flush=True)
+
+# Mode 3: custom (tool progress)
+from langgraph.config import get_stream_writer
+
+@tool
+def long_task(query: str) -> str:
+    """Task with progress updates."""
+    writer = get_stream_writer()
+    writer({"status": "Searching..."})
+    return "Done"
+
+# combine modes
+for chunk in agent.stream(
+    {"messages": "..."},
+    stream_mode=["values", "custom"],
+):
+    print(chunk)</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODULE 2: STRUCTURED OUTPUTS ===== -->
+    <div class="section-title teal">Module 2 — Structured Outputs &amp; Practical Applications</div>
+
+    <div class="major-section">
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">Approach 1: TypedDict (returns dict)</div>
+                <pre><code>from typing_extensions import TypedDict
+from langchain.agents import create_agent
+
+class ContactInfo(TypedDict):
+    name: str
+    email: str
+    phone: str
+
+agent = create_agent(
+    model="openai:gpt-4o-mini",
+    response_format=ContactInfo,
+)
+
+result = agent.invoke({
+    "messages": "Hi, I'm Jane, jane@ex.com, (555)123"
+})
+contact = result["structured_response"]  # dict
+print(contact["name"])   # "Jane"</code></pre>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">Approach 2: Pydantic BaseModel (recommended)</div>
+                <pre><code>from pydantic import BaseModel, Field
+from typing import List, Literal
+
+class MovieReview(BaseModel):
+    title: str = Field(description="Movie title")
+    sentiment: Literal["positive","negative","mixed"]
+    rating: int = Field(ge=1, le=10)
+    key_points: List[str]
+    recommended: bool
+
+agent = create_agent(
+    model="openai:gpt-4o-mini",
+    response_format=MovieReview,
+)
+result = agent.invoke({
+    "messages": "Review: Inception is amazing, 9/10"
+})
+review = result["structured_response"]  # MovieReview
+print(review.title, review.rating)  # Inception 9</code></pre>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="table-card">
+                <div class="table-card-header">Strategy Selection</div>
+                <table>
+                    <thead><tr><th>Strategy</th><th>How it works</th><th>Best for</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>ProviderStrategy</code></td><td>Native structured output API</td><td>OpenAI, Anthropic, Gemini</td></tr>
+                        <tr><td><code>ToolStrategy</code></td><td>Uses tool-calling mechanism</td><td>Any model with tool support</td></tr>
+                        <tr><td>Auto (pass schema)</td><td>LangChain picks best</td><td>Getting started</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">Explicit strategy selection</div>
+                <pre><code>from langchain.agents.structured_output import (
+    ProviderStrategy, ToolStrategy
+)
+
+# Native (fastest for OpenAI/Anthropic)
+agent = create_agent(
+    model="openai:gpt-4o-mini",
+    response_format=ProviderStrategy(schema=MovieReview),
+)
+
+# Tool-call based (universal fallback)
+agent = create_agent(
+    model="openai:gpt-4o-mini",
+    response_format=ToolStrategy(schema=MovieReview),
+)
+
+# Both return: result["structured_response"]</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="major-section">
+        <div class="subsection-title">Practical Application: Resume Analyzer &amp; Job-Fit Scorer</div>
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">Nested Pydantic models</div>
+                <pre><code>class SkillAssessment(BaseModel):
+    skill_name: str
+    proficiency: Literal[
+        "expert","proficient","familiar","none"]
+    evidence: str
+
+class CandidateProfile(BaseModel):
+    name: str
+    years_experience: int
+    current_role: str
+    top_skills: List[str]
+
+class JobFitEvaluation(BaseModel):
+    candidate: CandidateProfile
+    skill_assessments: List[SkillAssessment]
+    fit_score: int = Field(ge=0, le=100)
+    strengths: List[str]
+    gaps: List[str]
+    recommendation: Literal[
+        "strong_hire","hire","maybe","no_hire"]
+    summary: str</code></pre>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">Using structured output for batch comparison</div>
+                <pre><code>resume_agent = create_agent(
+    model="openai:gpt-4o-mini",
+    system_prompt="You are a technical recruiter.",
+    response_format=JobFitEvaluation,
+)
+
+result = resume_agent.invoke({
+    "messages": f"Evaluate:\nJOB:\n{job}\n\n"
+                f"RESUME:\n{resume}"
+})
+ev = result["structured_response"]
+
+# Access structured fields
+print(ev.candidate.name)
+print(ev.fit_score)          # 85
+print(ev.recommendation)     # "hire"
+print(ev.gaps)               # ["Missing Kubernetes"]
+
+# Batch comparison only possible with structured output!
+for ev in sorted(evals,
+    key=lambda x: x.fit_score, reverse=True):
+    print(f"{ev.candidate.name}: {ev.fit_score}%")</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODULE 3: RAG ===== -->
+    <div class="section-title green">Module 3 — RAG (Retrieval Augmented Generation)</div>
+
+    <div class="major-section">
+        <div class="subsection-title">Part 1: Indexing Pipeline — Load &rarr; Split &rarr; Embed &rarr; Store</div>
+
+        <div class="step-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-title">Load</div>
+                <div class="step-content">
+                    <code>WebBaseLoader</code><br>
+                    or <code>PyPDFLoader</code>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-title">Split</div>
+                <div class="step-content">
+                    <code>RecursiveCharacterTextSplitter</code><br>
+                    chunk_size=1000
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Embed</div>
+                <div class="step-content">
+                    <code>OpenAIEmbeddings</code><br>
+                    text to vectors
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-title">Store</div>
+                <div class="step-content">
+                    <code>Chroma</code><br>
+                    vector database
+                </div>
+            </div>
+        </div>
+
+        <div class="code-card mb-medium">
+            <div class="code-card-header">Complete indexing pipeline</div>
+            <pre><code>from langchain_community.document_loaders import WebBaseLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_openai import OpenAIEmbeddings
+
+# 1. Load
+loader = WebBaseLoader(["https://example.com/article"])
+docs = loader.load()
+
+# 2. Split
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+splits = splitter.split_documents(docs)
+
+# 3+4. Embed and Store
+vector_store = Chroma.from_documents(
+    documents=splits,
+    embedding=OpenAIEmbeddings(),
+    collection_name="my-docs",
+    persist_directory="./chroma-db"        # omit for in-memory
+)
+
+# Retrieve
+retriever = vector_store.as_retriever(search_kwargs={"k": 4})
+docs = retriever.invoke("what is task decomposition?")</code></pre>
+        </div>
+    </div>
+
+    <div class="major-section">
+        <div class="subsection-title">Part 2: RAG Agents (flexible) vs RAG Chains (fast)</div>
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">RAG Agent — LLM decides when to search</div>
+                <pre><code>from langchain_core.tools import tool
+from langchain.agents import create_agent
+
+@tool(response_format="content_and_artifact")
+def retrieve_context(query: str):
+    """Retrieve information to help answer a query."""
+    docs = vector_store.similarity_search(query, k=2)
+    serialized = "\n\n".join(
+        f"Source: {d.metadata}\n{d.page_content}"
+        for d in docs
+    )
+    return serialized, docs   # str + list[Document]
+
+agent = create_agent(
+    model,
+    [retrieve_context],
+    system_prompt=(
+        "Search documents before answering. "
+        "Cite sources."
+    ),
+)
+
+result = agent.invoke({
+    "messages": [{"role":"user","content":"What is RAG?"}]
+})</code></pre>
+            </div>
+            <div class="code-card">
+                <div class="code-card-header">RAG Chain — always searches, single LLM call</div>
+                <pre><code>from langchain.agents.middleware import (
+    dynamic_prompt, ModelRequest,
+    AgentMiddleware, AgentState
+)
+from langchain_core.documents import Document
+from typing import Any
+
+# Simple: @dynamic_prompt
+@dynamic_prompt
+def prompt_with_context(request: ModelRequest) -> str:
+    query = request.state["messages"][-1].text
+    docs = vector_store.similarity_search(query)
+    ctx = "\n\n".join(d.page_content for d in docs)
+    return f"Use this context:\n\n{ctx}"
+
+chain = create_agent(
+    model, tools=[], middleware=[prompt_with_context])
+
+# Advanced: AgentMiddleware (exposes source docs)
+class RetrieveDocs(AgentMiddleware[AgentState]):
+    def before_model(self, state):
+        msg = state["messages"][-1]
+        docs = vector_store.similarity_search(msg.text)
+        ctx = "\n\n".join(d.page_content for d in docs)
+        return {
+            "messages": [msg.model_copy(update={
+                "content": f"{msg.text}\n\nContext:\n{ctx}"
+            })],
+            "context": docs,
+        }
+
+chain2 = create_agent(
+    model, tools=[], middleware=[RetrieveDocs()])</code></pre>
+            </div>
+        </div>
+
+        <div class="table-card mb-medium">
+            <div class="table-card-header">RAG Agent vs RAG Chain</div>
+            <table>
+                <thead>
+                    <tr><th></th><th>RAG Agent</th><th>RAG Chain</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>LLM calls</strong></td><td>2 per query</td><td>1 per query</td></tr>
+                    <tr><td><strong>Search control</strong></td><td>LLM decides when to search</td><td>Always searches first</td></tr>
+                    <tr><td><strong>Multiple searches</strong></td><td>Yes (for complex queries)</td><td>No (single retrieval)</td></tr>
+                    <tr><td><strong>Flexibility</strong></td><td>High — can skip search</td><td>Low — always retrieves</td></tr>
+                    <tr><td><strong>Best for</strong></td><td>Complex, open-ended queries</td><td>Simple, fast, predictable queries</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== DEMO ===== -->
+    <div class="section-title orange">Demo — Deployable Chat-Over-Docs Agent</div>
+
+    <div class="major-section">
+        <div class="grid-2">
+            <div class="code-card">
+                <div class="code-card-header">demo/agent.py — production RAG pattern</div>
+                <pre><code>from langchain.agents import create_agent
+from langchain.chat_models import init_chat_model
+from langchain_core.tools import tool
+
+_retriever = None
+
+def get_retriever():
+    """Lazily build vector store on first use."""
+    global _retriever
+    if _retriever is None:
+        # load, split, embed, store (once)
+        _retriever = vectorstore.as_retriever(
+            search_kwargs={"k": 4}
+        )
+    return _retriever
+
+@tool
+def search_documents(query: str) -> str:
+    """Search loaded docs for relevant information."""
+    docs = get_retriever().invoke(query)
+    return "\n\n".join(
+        f"[Source: {d.metadata['source']}]\n"
+        f"{d.page_content}"
+        for d in docs
+    )
+
+agent = create_agent(
+    model=init_chat_model("openai:gpt-4o-mini"),
+    tools=[search_documents],
+    system_prompt=(
+        "Always search documents before answering."
+        " Cite your sources."
+    ),
+    # No checkpointer -- langgraph dev handles persistence
+)</code></pre>
+            </div>
+            <div class="card">
+                <div class="card-title">Deploy &amp; Connect</div>
+                <div class="card-content">
+                    <p><strong>Start server:</strong></p>
+                    <pre style="font-family:'Courier New',monospace;font-size:7.5pt;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;overflow-wrap:break-word;background:#f4f6f8;padding:6pt;border:1px solid #ccc;margin-bottom:6pt;">make demo
+# OR: uv run langgraph dev</pre>
+                    <p><strong>Connect UI:</strong></p>
+                    <ol>
+                        <li>Visit <strong>agentchat.vercel.app</strong></li>
+                        <li>Connect to <code>http://localhost:2024</code></li>
+                        <li>Graph ID: <code>chat_over_docs</code></li>
+                    </ol>
+                    <br>
+                    <p><strong>langgraph.json</strong> — deployment config</p>
+                    <p>LangSmith auto-traces all runs when <code>LANGCHAIN_TRACING_V2=true</code></p>
+                    <br>
+                    <p><strong>Key pattern: lazy init</strong> — vector store built once on first tool call, not at import time</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== QUICK REFERENCE ===== -->
+    <div class="section-title blue">Quick Reference — Key APIs</div>
+
+    <div class="major-section">
+        <div class="table-card mb-medium">
+            <div class="table-card-header">Complete API Reference</div>
+            <table>
+                <thead>
+                    <tr><th>Concept</th><th>API / Pattern</th><th>Key Parameter / Note</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Create agent</strong></td><td><code>create_agent(model, tools)</code></td><td><code>checkpointer</code>, <code>response_format</code>, <code>system_prompt</code></td></tr>
+                    <tr><td><strong>Init model</strong></td><td><code>init_chat_model("provider:model")</code></td><td>Returns ChatModel — supports invoke/stream/batch</td></tr>
+                    <tr><td><strong>Define tool</strong></td><td><code>@tool</code> decorator</td><td>Type hints + docstring mandatory; use <code>args_schema=</code> for Pydantic</td></tr>
+                    <tr><td><strong>Add memory</strong></td><td><code>InMemorySaver()</code> + thread_id</td><td><code>{"configurable": {"thread_id": "..."}}</code> as config arg</td></tr>
+                    <tr><td><strong>Structured output</strong></td><td><code>response_format=MyModel</code></td><td><code>result["structured_response"]</code> returns dict or Pydantic instance</td></tr>
+                    <tr><td><strong>RAG tool</strong></td><td><code>@tool(response_format="content_and_artifact")</code></td><td>Returns <code>(str, docs)</code> tuple</td></tr>
+                    <tr><td><strong>RAG chain</strong></td><td><code>middleware=[prompt_fn]</code></td><td><code>@dynamic_prompt</code> or <code>AgentMiddleware</code> subclass</td></tr>
+                    <tr><td><strong>Indexing</strong></td><td><code>Chroma.from_documents(docs, embeddings)</code></td><td><code>persist_directory=</code> for disk storage</td></tr>
+                    <tr><td><strong>Stream mode</strong></td><td><code>agent.stream(..., stream_mode=)</code></td><td><code>"values"</code>, <code>"messages"</code>, <code>"custom"</code>, or list of multiple</td></tr>
+                    <tr><td><strong>Deploy</strong></td><td><code>langgraph dev</code> / <code>make demo</code></td><td>Serves at <code>http://localhost:2024</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="key-points">
+            <div class="key-points-title">Core Mental Models</div>
+            <ul>
+                <li><strong>create_agent() returns a LangGraph CompiledGraph</strong> — not a simple callable. It has invoke(), stream(), and get_graph() methods.</li>
+                <li><strong>Tools need type hints + docstrings</strong> — the docstring becomes the tool description the LLM reads to decide when to call it.</li>
+                <li><strong>Thread IDs are memory namespaces</strong> — same thread_id = same conversation history; new thread_id = fresh slate.</li>
+                <li><strong>Structured output lives in result["structured_response"]</strong> — TypedDict returns dict, Pydantic returns an instance with attribute access.</li>
+                <li><strong>RAG Agents use 2 LLM calls</strong> (tool call + response); RAG Chains use 1 call (inject context before model).</li>
+                <li><strong>LangGraph dev handles persistence</strong> — no need to pass checkpointer when deploying with langgraph dev.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Automata Learning Lab &nbsp;|&nbsp; Getting Started with LangChain 1.0+ &nbsp;|&nbsp; O'Reilly Live Training &nbsp;|&nbsp; docs.langchain.com &nbsp;|&nbsp; langchain-ai.github.io/langgraph</p>
+    </footer>
+
+</body>
+</html>
