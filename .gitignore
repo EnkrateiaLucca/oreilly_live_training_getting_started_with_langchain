@@ -40,3 +40,8 @@ chroma/
 ## presentation-slides folder
 presentation-slides/
 
+# Course process artifacts (not student-facing content)
+Plans/
+research/
+walkthrough.md
+
