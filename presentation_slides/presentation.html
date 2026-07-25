@@ -276,18 +276,34 @@
 
       - __LLMs can predict the next word in a sequence__. ("I Like eating...? ;P ")
 
-      - __LangChain framework:__ eases the creation of LLM-based applications, built around 6 core building blocks:
+      - __LangChain framework:__ eases the creation of LLM-based applications, built around __6 core building blocks:__
 
-        - __Agents__ (`create_agent()`), __Models__ (`init_chat_model()`), __Messages__
-        - __Tools__, __Short-term Memory__, __Streaming__
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 22px 0;">
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Agents</strong><br/><code style="font-size: 17px;">create_agent()</code>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Models</strong><br/><code style="font-size: 17px;">init_chat_model()</code>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Messages</strong>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Tools</strong>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Short-term Memory</strong>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Streaming</strong>
+        </div>
+      </div>
 
       - __`create_agent()`__ is the primary entry point — it replaces manually piping `prompt | llm | output_parser`.
 
-      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
-
-        ```
-        Create a simple agent with create_agent() that summarizes content.
-        ```
+      <div style="margin-top: 22px; padding: 12px 20px; background-color: #fdf1f1; border: 1px solid #e3a9a9; border-left: 6px solid #b00000; border-radius: 6px; font-size: 19px; color: #333;">
+        <strong style="color: #b00000;">Optional Exercise (during Q&amp;A):</strong> Create a simple agent with <code style="font-size: 17px;">create_agent()</code> that summarizes content.
+      </div>
 
       ???
 
@@ -302,9 +318,9 @@
 
       # Poll Question
 
-      ```text
-      Which statement best captures the primary advantage of using a framework like LangChain for LLM-based applications?
+      **Which statement best captures the primary advantage of using a framework like LangChain for LLM-based applications?**
 
+      ```text
         A. It automatically trains your model without any configuration
         B. It offers unified abstractions (agents, models, tools) that streamline development
         C. It focuses solely on deployment, not on application logic
@@ -477,11 +493,9 @@
 
       - __RAG Agents__ (agent decides when to search, via a retrieval `@tool`) vs __RAG Chains__ (always search, single LLM call).
 
-      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
-
-        ```
-        Create a simple RAG agent with create_agent() that answers questions about pdfs or csvs.
-        ```
+      <div style="margin-top: 22px; padding: 12px 20px; background-color: #fdf1f1; border: 1px solid #e3a9a9; border-left: 6px solid #b00000; border-radius: 6px; font-size: 19px; color: #333;">
+        <strong style="color: #b00000;">Optional Exercise (during Q&amp;A):</strong> Create a simple RAG agent with <code style="font-size: 17px;">create_agent()</code> that answers questions about pdfs or csvs.
+      </div>
 
       ???
 
@@ -596,12 +610,10 @@
 
       - __Streaming__ has three modes: `"values"`, `"messages"`, and `"custom"`.
 
-      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
-
-
-      Create a simple agent with create_agent() and a tool that builds a schedule given a table of tasks and deadlines.
-
-      `table format = task | date`
+      <div style="margin-top: 22px; padding: 12px 20px; background-color: #fdf1f1; border: 1px solid #e3a9a9; border-left: 6px solid #b00000; border-radius: 6px; font-size: 19px; color: #333;">
+        <strong style="color: #b00000;">Optional Exercise (during Q&amp;A):</strong> Create a simple agent with <code style="font-size: 17px;">create_agent()</code> and a tool that builds a schedule given a table of tasks and deadlines.
+        <div style="margin-top: 6px; font-size: 17px; color: #555;"><code>table format = task | date</code></div>
+      </div>
 
       ---
 
