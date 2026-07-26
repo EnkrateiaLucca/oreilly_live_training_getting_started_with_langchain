@@ -16,6 +16,9 @@ dependencies = [
     # Search Tools
     "langchain-tavily>=0.1.0",
 
+    # Local models (Ollama demo in notebook 1.0)
+    "langchain-ollama>=0.3.0",
+
     # RAG Dependencies
     "langchain-chroma>=1.0.0",
     "langchain-text-splitters>=1.0.0",

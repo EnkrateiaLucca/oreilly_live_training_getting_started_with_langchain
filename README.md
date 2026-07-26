@@ -31,9 +31,14 @@ cp .env.example .env
 # 3. Install dependencies
 uv sync
 
-# 4. Launch Jupyter
+# 4. Register the Jupyter kernel the notebooks expect
+uv run python -m ipykernel install --user --name=oreilly-langchain --display-name "oreilly-langchain"
+
+# 5. Launch Jupyter
 uv run jupyter lab
 ```
+
+When opening a notebook, select the **oreilly-langchain** kernel (Kernel → Change Kernel) if it isn't picked up automatically.
 
 ## Course Structure
 

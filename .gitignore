@@ -34,9 +34,17 @@ uv.lock
 # Demo
 demo/.env
 chroma/
+.langgraph_api/
 
 # Project files
 
-## presentation-slides folder
-presentation-slides/
+# Course process artifacts (not student-facing content)
+Plans/
+research/
+walkthrough.md
+
+# Generated runtime artifacts (regenerated on demand, not shipped)
+*.sqlite3
+chroma-db/
+notebooks/research.md
 

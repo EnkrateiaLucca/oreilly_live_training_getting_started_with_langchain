@@ -21,7 +21,7 @@
       class: center, middle
       # Getting Started with LangChain
       ### Lucas Soares
-      #### 15-05-2025
+      #### August 2026
 
       ---
 
@@ -55,7 +55,7 @@
 
       Large Language Models Predict the Next Word
 
-      <img src="../notebooks/assets-resources/llm_predicts_pancakes.png" alt="LLM Predicts Pancakes" style="width: 600px;"/>
+      <img src="assets/llm_predicts_pancakes.png" alt="LLM Predicts Pancakes" style="width: 600px;"/>
 
       ---
 
@@ -63,7 +63,7 @@
 
       - Conversational ChatBots
 
-      <img src="../notebooks/assets-resources/chatgpt-demo.png" alt="ChatGPT Demo" style="width: 600px;"/>
+      <img src="assets/chatgpt-demo.png" alt="ChatGPT Demo" style="width: 600px;"/>
 
       
 
@@ -73,7 +73,7 @@
 
       - Search Engines
 
-      <img src="../notebooks/assets-resources/google-icon.png" alt="Google Icon" style="width: 600px;"/>
+      <img src="assets/google-icon.png" alt="Google Icon" style="width: 600px;"/>
 
       
 
@@ -83,7 +83,7 @@
 
       - Translation
 
-      <img src="../notebooks/assets-resources/google-translate.png" alt="LLM Translation" style="width: 600px;"/>
+      <img src="assets/google-translate.png" alt="LLM Translation" style="width: 600px;"/>
 
       --
 
@@ -93,7 +93,7 @@
 
       <div style="display: flex; align-items: center;">
         <h1 style="margin: 0;">What is Langchain?</h1>
-        <img src="../notebooks/assets-resources/langchain-icon.svg" alt="Langchain Icon" style="width: 100px; margin-left: 20px;"/>
+        <img src="assets/langchain-icon.svg" alt="Langchain Icon" style="width: 100px; margin-left: 20px;"/>
       </div>
 
       --
@@ -110,7 +110,7 @@
 
       --
 
-        - off-the-shelf-chains
+        - prebuilt agents (`create_agent()`)
 
       ---
       class: center, middle
@@ -123,163 +123,142 @@
 
       ---
 
-      # LangChain Components
+      # LangChain 1.0 — Building Blocks
 
       --
 
-      ## Models
-      
-      --
-
-      - Abstractions over the LLM APIs
+      - __Agents__ — `create_agent()`
 
       --
-        
+
+      - __Models__ — `init_chat_model()`
+
+      --
+
+      - __Messages__ — system, human, ai, tool
+
+      --
+
+      - __Tools__ — `@tool` decorator
+
+      --
+
+      - __Short-term Memory__ + __Streaming__
+
+      ---
+
+      # Models
+
+      --
+
+      - Provider-agnostic factory for any LLM
+
+      --
+
         ```python
         from langchain.chat_models import init_chat_model
-        
-        model = init_chat_model("gpt-4o-mini", model_provider="openai")
+
+        model = init_chat_model("gpt-5.6-terra")
 
         output = model.invoke("I am teaching a live-training about LLMs!")
 
         print(output.content)
         ```
 
-      ---
-
-      # LangChain Components
-
       --
 
-      ## Prompt Templates
-
-      --
-
-      - Abstractions over standard prompts to LLMs
-
-
-
-      --
-
-        ``````
-        from langchain_core.prompts import ChatPromptTemplate
-
-        prompt = ChatPromptTemplate.from_template(
-          """Show me 5 examples of this concept: {concept}"""
-          )
-
-        prompt.format(concept="animal")
-
-        # Output
-        # 'Human: Show me 5 examples of this concept: animal'
-        ```
-
-      ???
-        When I say Abstraction I mean for example that you can treat pieces of text in a regular prompt like a variable
-        you can dynamically change without modifying the rest of the prompt.
+      - Same call shape for `"openai:gpt-5.6-terra"`, `"anthropic:claude-sonnet-5"`, `"google_genai:gemini-3.6-flash"`
 
       ---
 
-      # LangChain Components
+      # Messages
 
       --
 
-      ## Output Parsers
+      - Conversations are lists of typed messages:
 
       --
 
-      - Translates raw output from LLM to a workable format
+        - `SystemMessage` — sets behavior/persona
+        - `HumanMessage` — user input
+        - `AIMessage` — model response
+        - `ToolMessage` — tool execution result
 
       --
 
         ```python
-        from langchain_core.output_parsers import StrOutputParser
-        output_parser = StrOutputParser()
+        from langchain.messages import HumanMessage, SystemMessage
+
+        model.invoke([
+          SystemMessage(content="You tell jokes."),
+          HumanMessage(content="Tell me a joke"),
+        ])
         ```
 
       ---
 
-      # Chains in LangChain
+      # Agents — `create_agent()`
 
       --
 
-      ## Chain = Model + Prompt + Output Parser
+      - The central API in LangChain 1.0 — __replaces the old executor-based agent runtime__
 
       --
 
-      - Chains are the building blocks in LangChain
-
-      --
-
-      - They are used to compose abstractions that go from simple to complex components
+      - Returns a LangGraph `CompiledGraph` you call with `{"messages": [...]}`
 
       --
 
         ```python
-        llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
-        prompt = ChatPromptTemplate.from_template("""
-        Write 5 concepts that are fundamental to learn about {topic}.
-                                                  """)
-        chain = prompt | llm | output_parser
-        chain.invoke({"topic": "Artificial Neural Networks"})
+        from langchain.agents import create_agent
+
+        agent = create_agent(
+            model,             # "provider:model-name" or a ChatModel
+            tools=None,        # list of @tool-decorated functions
+            system_prompt=None,
+            checkpointer=None, # for memory persistence
+            response_format=None,  # for structured output
+        )
         ```
 
       ---
 
-      # LCEL - LangChain Expression Language
-      
-      ## Composing Chains with LCEL
+      # Agents — Minimal Example
 
       --
 
-      - LCEL is a powerful, declarative language designed 
-      to streamline the composition of complex chains 
-      in the LangChain framework.
+        ```python
+        from langchain.agents import create_agent
+
+        # Minimal agent — 3 lines
+        agent = create_agent(model="openai:gpt-5.6-terra", tools=[])
+        result = agent.invoke({"messages": "What is LangChain?"})
+        result["messages"][-1].pretty_print()
+        ```
 
       --
 
-      - Pipe syntax
+      - No manual chain piping — the agent decides what to do with the input
 
-          <img src="../notebooks/assets-resources/lcel-image.png" alt="LCEL" width="300px;">
-
-      --
-
-      ```python
-          chain = prompt | llm | output_parser
-      ```
-      
-      --
-      
-      - Allows you to build complex chain pipelines
-        with a simple standard interface
-      
       ---
 
-      # LCEL - Runnables
-
-
-      - To facilitate creation of custom chains, LangChain has implemented a __"Runnable" protocol__.
+      # Why `create_agent()` First?
 
       --
 
-      - The standard interface includes `stream`, `invoke`, and `batch` methods. Async methods are also available
+      - No `prompt | llm | output_parser` piping to hand-wire
 
       --
-      
-      - The input type and output type vary by component:
 
-      <img src="../notebooks/assets-resources/components_input_output.png" alt="Components Input Output" style="width: 600px;"/>
+      - Tools, memory, and streaming are built in from the start
 
-      ???
+      --
 
-        - `stream`: Stream back chunks of the response
-      
-      
-        
-        - `invoke`: Call the chain on an input
-      
-        
-        - `batch`: Call the chain on a list of inputs
+      - Works identically with zero tools or many tools
+
+      --
+
+      - The same API scales from a one-line chatbot to a full agent
 
       ---
       class: center, middle
@@ -295,23 +274,36 @@
 
       # Q&A & Summary
 
-      - __LLMs can predict the next word in a sequence__. ("I Like eating...? ;P ") 
+      - __LLMs can predict the next word in a sequence__. ("I Like eating...? ;P ")
 
-      - __LangChain framework:__ eases the creation of LLM-based applications, featuring chains and the following basic components:
+      - __LangChain framework:__ eases the creation of LLM-based applications, built around __6 core building blocks:__
 
-        - __Models__: Abstractions over LLM APIs (e.g ChatGPT).
-        - __Prompt Templates__: Abstractions over prompts (makes them dynamic).
-        - __Output Parsers__: Converts LLM outputs into usable formats (e.g string, json).
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 22px 0;">
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Agents</strong><br/><code style="font-size: 17px;">create_agent()</code>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Models</strong><br/><code style="font-size: 17px;">init_chat_model()</code>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Messages</strong>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Tools</strong>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Short-term Memory</strong>
+        </div>
+        <div style="background-color: #f0fff0; border: 1px solid #7cb87c; border-radius: 8px; padding: 12px 10px; text-align: center;">
+          <strong style="font-size: 22px;">Streaming</strong>
+        </div>
+      </div>
 
-      - __Chains__ are the building blocks in LangChain, composed of Models, Prompt Templates, and Output Parsers.
+      - __`create_agent()`__ is the primary entry point — it replaces manually piping `prompt | llm | output_parser`.
 
-      - __LCEL__ is a declarative language that users the Unix pipe symbol to build complex chain pipelines with a simple standard interface.
-
-      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
-
-        ```
-        Create a simple chain for summarization of content. 
-        ```
+      <div style="margin-top: 22px; padding: 12px 20px; background-color: #fdf1f1; border: 1px solid #e3a9a9; border-left: 6px solid #b00000; border-radius: 6px; font-size: 19px; color: #333;">
+        <strong style="color: #b00000;">Optional Exercise (during Q&amp;A):</strong> Create a simple agent with <code style="font-size: 17px;">create_agent()</code> that summarizes content.
+      </div>
 
       ???
 
@@ -326,11 +318,11 @@
 
       # Poll Question
 
-      ```text
-      Which statement best captures the primary advantage of using a framework like LangChain for LLM-based applications?
+      **Which statement best captures the primary advantage of using a framework like LangChain for LLM-based applications?**
 
+      ```text
         A. It automatically trains your model without any configuration
-        B. It offers unified abstractions (chains, prompts, parsers) that streamline development
+        B. It offers unified abstractions (agents, models, tools) that streamline development
         C. It focuses solely on deployment, not on application logic
         D. It restricts user inputs to enhance security
       ```
@@ -340,19 +332,19 @@
       # Poll Question
 
       ```text
-      Which best describes the purpose of a "Prompt Template" in LangChain?
+      Which best describes what create_agent() returns in LangChain 1.0?
 
-        A. A fixed script that cannot be modified once generated
-        B. A dynamic format that reuses prompt structures with variable placeholders
-        C. An external file that stores long sequences of textual data
-        D. A built-in mechanism for parsing JSON responses
+        A. A REST API endpoint for the model
+        B. A compiled LangGraph graph you invoke with {"messages": [...]}
+        C. A fixed script that cannot be modified once generated
+        D. A raw string containing the model's response
       ```
 
       ---
 
       # LangChain for Chat Over Documents
 
-      <img src="../notebooks/assets-resources/rag-docs.png">
+      <img src="assets/rag-docs.png">
       
       --
 
@@ -374,25 +366,25 @@
 
       # LangChain for Chat Over Documents
 
-      <img src="../notebooks/assets-resources/rag-docs.png">
+      <img src="assets/rag-docs.png">
 
 
       - Embeddings are vectorized representations of text
 
-      <img src="../notebooks/assets-resources/embeddings.png" alt="Embeddings" style="width: 600px;"/>
+      <img src="assets/embeddings.png" alt="Embeddings" style="width: 600px;"/>
 
 
 
       ---
       # LangChain for Chat Over Documents
 
-      <img src="../notebooks/assets-resources/embeddings-similarity.png" alt="Embeddings Similarity" style="width: 600px;"/>
+      <img src="assets/embeddings-similarity.png" alt="Embeddings Similarity" style="width: 600px;"/>
 
       ---
 
       # LangChain for Chat Over Documents
 
-      <img src="../notebooks/assets-resources/embeddings-similarity2.png" alt="Embeddings Similarity" style="width: 600px;"/>
+      <img src="assets/embeddings-similarity2.png" alt="Embeddings Similarity" style="width: 600px;"/>
 
       - Embeddings capture content and meaning
 
@@ -400,7 +392,7 @@
 
       # LangChain for Chat Over Documents
 
-      <img src="../notebooks/assets-resources/vectordb.png" alt="Embeddings Similarity" style="width: 600px;"/>
+      <img src="assets/vectordb.png" alt="Embeddings Similarity" style="width: 600px;"/>
 
       - Embeddings capture content and meaning
 
@@ -439,7 +431,7 @@
 
       --
 
-      <img src="../notebooks/assets-resources/rag-langchain.png" alt="RAG LangChain" style="width: 600px;"/>
+      <img src="assets/rag-langchain.png" alt="RAG LangChain" style="width: 600px;"/>
 
       --
 
@@ -461,7 +453,7 @@
       
       # LangChain for Chat Over Documents
 
-      <img src="../notebooks/assets-resources/rag-langchain-retrieval.png" alt="RAG LangChain" style="width: 600px;"/>
+      <img src="assets/rag-langchain-retrieval.png" alt="RAG LangChain" style="width: 600px;"/>
 
       --
 
@@ -493,21 +485,17 @@
 
       # Q&A & Summary
 
-      - __RAG__ = __R__etrieval __A__ugmented __G__eneration
-
-      - __RAG__ is about connecting LLMs to documents like PDFs, Text files, HTML, etc.
+      - __RAG__ = __R__etrieval __A__ugmented __G__eneration — connects LLMs to documents like PDFs, text, HTML.
 
       - __Embeddings__ are vectorized representations of text that capture content and meaning.
 
-      - __Vector DBs__ are used to store and retrieve embeddings.
+      - __Indexing pipeline__: Load → Split → Store (`Chroma` + `OpenAIEmbeddings`).
 
-      - __RAG__ systems with LangChain are built using a pipeline that includes loading, splitting, embedding, and storing documents.
+      - __RAG Agents__ (agent decides when to search, via a retrieval `@tool`) vs __RAG Chains__ (always search, single LLM call).
 
-      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
-
-        ```
-        Create a simple RAG system with LangChain that can answer questions about pdfs or csvs. 
-        ```
+      <div style="margin-top: 22px; padding: 12px 20px; background-color: #fdf1f1; border: 1px solid #e3a9a9; border-left: 6px solid #b00000; border-radius: 6px; font-size: 19px; color: #333;">
+        <strong style="color: #b00000;">Optional Exercise (during Q&amp;A):</strong> Create a simple RAG agent with <code style="font-size: 17px;">create_agent()</code> that answers questions about pdfs or csvs.
+      </div>
 
       ???
 
@@ -529,10 +517,69 @@
 
       --
 
-      <img src="../notebooks/assets-resources/agent_loop.svg">
+      <img src="assets/agent_loop.svg">
 
       ---
+
       # Components of an Agent
+
+      --
+
+      - `create_agent()` takes a __model__, a list of __tools__, and a __system prompt__
+
+      --
+
+        ```python
+        model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
+        agent = create_agent(
+            model=model,
+            tools=[read_file, write_file, search_tool],
+            system_prompt="You are a helpful assistant...",
+        )
+        ```
+
+      --
+
+      - It returns a __LangGraph agent__ — no separate executor runtime needed
+
+      --
+
+      - Reasoning models (like `gpt-5.6-terra`) need `reasoning_effort="none"` to call tools
+
+      ---
+
+      # Tools — `@tool` Decorator
+
+      --
+
+      - Type hints and a docstring are mandatory — they define the schema the model sees
+
+      --
+
+        ```python
+        from langchain_core.tools import tool
+
+        @tool
+        def calculate(expression: str) -> str:
+            """Evaluate a mathematical expression.
+
+            Args:
+                expression: A Python math expression like '2 + 2'
+            """
+            return str(eval(expression))
+        ```
+
+      ---
+
+      # Memory & Streaming
+
+      --
+
+      - __Short-term memory__: pass a `checkpointer` (e.g. `InMemorySaver()`) + a `thread_id` — different threads, different memories
+
+      --
+
+      - __Streaming__ modes: `"values"` (full state per step), `"messages"` (token by token), `"custom"` (progress updates from tools)
 
       ---
 
@@ -540,7 +587,7 @@
 
       ```text
       Which best describes the “Agent Loop” illustrated in the presentation?
-        
+
         A. A direct data-loading pipeline for vector databases
         B. A continuous decision-making cycle where an LLM decides actions and checks results
         C. A script for parallel execution of tasks in a single pass
@@ -552,7 +599,7 @@
 
       <h2>
       <span style="background-color: lightgreen">
-       Notebook Demo - Simple React Agent Walthrough in LangChain
+       Notebook Demo - Building an Agent with create_agent()
       </span>
       </h2>
 
@@ -560,21 +607,19 @@
 
       # Q&A & Summary
 
-      - __LangChain__ provides abstractions for building agents, including AgentAction, AgentFinish, and Agent.
+      - __`create_agent()`__ builds an agent from a model, tools, and a system prompt — it replaces the old executor-based agent runtime.
 
-      - __AgentExecutor__ is the runtime for an agent, handling agent decisions, tool calls, and observability.
+      - __Tools__ are plain functions decorated with `@tool`; type hints and docstrings define the schema the model sees.
 
-      - __Tools__ in LangChain are functions that an agent can call, consisting of an input schema and a function to run.
+      - __Short-term memory__ comes from passing a `checkpointer` and a `thread_id`.
 
-      - __LangChain__ provides a wide set of toolkits, groups of 3-5 tools for specific objectives, an example is GitHub toolkit for interacting with GitHub.
+      - __Streaming__ has three modes: `"values"`, `"messages"`, and `"custom"`.
 
-      - <span style="color: red"> __Optional Exercise During Q&A__ </span>
+      <div style="margin-top: 22px; padding: 12px 20px; background-color: #fdf1f1; border: 1px solid #e3a9a9; border-left: 6px solid #b00000; border-radius: 6px; font-size: 19px; color: #333;">
+        <strong style="color: #b00000;">Optional Exercise (during Q&amp;A):</strong> Create a simple agent with <code style="font-size: 17px;">create_agent()</code> and a tool that builds a schedule given a table of tasks and deadlines.
+        <div style="margin-top: 6px; font-size: 17px; color: #555;"><code>table format = task | date</code></div>
+      </div>
 
-        
-      Create a simple agent that can create a schedule for you given a table of tasks and deadlines.
-      
-      `table format = task | date`
-        
       ---
 
       # Understanding Agentic Systems
@@ -599,7 +644,7 @@
 
       --
         
-      <img src="../notebooks/assets-resources/agent-loop.png" width="800">
+      <img src="assets/agent-loop.png" width="800">
 
       <p class="footnote">
           <a href='https://blog.langchain.dev/openais-bet-on-a-cognitive-architecture/'> Explanation of the agent loop in cognitive architectures. </a>
@@ -681,7 +726,7 @@
 
       - Workflows built with agents are usually structured as graphs!!
 
-      <img src="../notebooks/assets-resources/basic-agent-diagram.png" width="500">
+      <img src="assets/basic-agent-diagram.png" width="500">
 
       ---
       
@@ -713,7 +758,7 @@
 
       --
 
-      <img src="../notebooks/assets-resources/langgraph-components.png" style="width:400px; margin-left: 150px;">
+      <img src="assets/langgraph-components.png" style="width:400px; margin-left: 150px;">
 
       --
       
@@ -764,7 +809,7 @@
 
       --
 
-      <img src="../notebooks/assets-resources/agent-loop-langgraph-version.png" width="550">
+      <img src="assets/agent-loop-langgraph-version.png" width="550">
 
       
 
@@ -798,44 +843,31 @@
 
       ---
 
-      # LangServe Super Quick Intro
+      # Deploying Agents — `langgraph dev`
 
-      - LangServe helps developers deploy LangChain runnables and chains as a REST API. 
-
-      --
-
-      - It is integrated with FastAPI and uses pydantic for data validation. 
+      - Local development server with hot-reloading — starts at `http://localhost:2024`
 
       --
 
-      - It provides a client that can be used to call into runnables deployed on a server.
+      - Run it from the repo's `demo/` app: `uv run langgraph dev`
 
       --
 
-      - Input and Output schemas automatically inferred from your LangChain object, and enforced on every API call, with rich error messages
-        
-      --
-      
-      - Efficient /invoke/, /batch/ and /stream/ endpoints with support for many concurrent requests on a single server    
-      
-      --
-      
-      - Playground page at /playground/ with streaming output and intermediate steps
+      - Connect the __Agent Chat UI__ at [agentchat.vercel.app](https://agentchat.vercel.app):
+
+        - Deployment URL: `http://localhost:2024`
+        - Graph ID: `chat_over_docs`
 
       --
-      
-      - Built-in (optional) tracing to LangSmith, just add your API key (see Instructions)
-      
-      --
-      
-      - Use the client SDK to call a LangServe server as if it was a Runnable running locally (or call the HTTP API directly)
+
+      - Optional: enable `LANGSMITH_TRACING=true` to trace every run in LangSmith
 
       ---
       class: center, middle
 
       <h2>
       <span style="background-color: lightgreen">
-        Notebook Demo - Deployment with LangServe
+        Notebook Demo - Deployment with langgraph dev
       </span>
       </h2>
 
@@ -843,16 +875,20 @@
 
       # Final Q&A & Summary
 
-      - __LangServe__ helps developers deploy LangChain runnables and chains as a REST API.
+      - __`langgraph dev`__ starts a local server for any `create_agent()` agent — no separate deployment framework needed.
 
-      - It is integrated with FastAPI and uses pydantic for data validation.
-    
+      - The __Agent Chat UI__ ([agentchat.vercel.app](https://agentchat.vercel.app)) connects to it for interactive testing.
+
+      - The demo agent (`demo/agent.py`) is a RAG-over-docs agent — the same `create_agent()` + retrieval `@tool` pattern from the RAG section.
+
+      - __LangSmith__ traces tool calls, token usage, and full conversation history when tracing is enabled.
+
       ---
 
 
       # References
-      - [LangChain Intro Docs](https://python.langchain.com/docs/get_started/introduction)
-      - [LangChain Documentation](https://python.langchain.com/docs/modules/agents/concepts)
+      - [LangChain Documentation](https://docs.langchain.com/)
+      - [LangChain Agents](https://docs.langchain.com/oss/python/langchain/agents)
       - [Gen Agents](https://arxiv.org/pdf/2304.03442.pdf)
       - [WebGPT](https://www.semanticscholar.org/paper/WebGPT%3A-Browser-assisted-question-answering-with-Nakano-Hilton/2f3efe44083af91cef562c1a3451eee2f8601d22)
       - [OpenAI](https://openai.com/)

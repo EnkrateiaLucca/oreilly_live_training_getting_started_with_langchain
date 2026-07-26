@@ -36,7 +36,7 @@ def get_retriever():
 
         vectorstore = Chroma.from_documents(
             documents=splits,
-            embedding=OpenAIEmbeddings(),
+            embedding=OpenAIEmbeddings(model="text-embedding-3-small"),
             collection_name="course_docs",
         )
         _retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
@@ -81,7 +81,9 @@ prompt engineering, or related topics.
 - Be concise but thorough."""
 
 agent = create_agent(
-    model=init_chat_model("openai:gpt-5.4-mini"),
+    # Reasoning models need reasoning_effort="none" to use function tools
+    # on the /v1/chat/completions endpoint.
+    model=init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none"),
     tools=[search_documents],
     system_prompt=SYSTEM_PROMPT,
     # No checkpointer needed — langgraph dev provides persistence automatically
