@@ -21,7 +21,7 @@
       class: center, middle
       # Getting Started with LangChain
       ### Lucas Soares
-      #### 25-07-2026
+      #### August 2026
 
       ---
 
@@ -530,8 +530,9 @@
       --
 
         ```python
+        model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
         agent = create_agent(
-            model="openai:gpt-5.6-terra",
+            model=model,
             tools=[read_file, write_file, search_tool],
             system_prompt="You are a helpful assistant...",
         )
@@ -540,6 +541,10 @@
       --
 
       - It returns a __LangGraph agent__ — no separate executor runtime needed
+
+      --
+
+      - Reasoning models (like `gpt-5.6-terra`) need `reasoning_effort="none"` to call tools
 
       ---
 

@@ -46,4 +46,5 @@ walkthrough.md
 # Generated runtime artifacts (regenerated on demand, not shipped)
 *.sqlite3
 chroma-db/
+notebooks/research.md
 
