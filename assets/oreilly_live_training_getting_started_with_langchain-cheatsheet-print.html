@@ -443,8 +443,8 @@ make demo              # start agent server</pre>
                     <ul>
                         <li><code>OPENAI_API_KEY</code> — LLM calls</li>
                         <li><code>TAVILY_API_KEY</code> — web search tools</li>
-                        <li><code>LANGCHAIN_API_KEY</code> — LangSmith tracing (optional)</li>
-                        <li><code>LANGCHAIN_TRACING_V2=true</code> — enable tracing</li>
+                        <li><code>LANGSMITH_API_KEY</code> — LangSmith tracing (optional)</li>
+                        <li><code>LANGSMITH_TRACING=true</code> — enable tracing</li>
                     </ul>
                 </div>
             </div>
@@ -483,9 +483,11 @@ result = agent.invoke({"messages": "What is LangChain?"})</code></pre>
                 <pre><code>from langchain_tavily import TavilySearch
 
 search = TavilySearch(max_results=5)
+# Reasoning models need reasoning_effort="none" to use function tools
+model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
 
 agent = create_agent(
-    model="openai:gpt-5.6-terra",
+    model=model,
     tools=[search],
     system_prompt="You are a helpful assistant.",
 )
@@ -651,8 +653,9 @@ def get_account_info(
                 <div class="code-card-header">Memory with checkpointer</div>
                 <pre><code>from langgraph.checkpoint.memory import InMemorySaver
 
+model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
 agent = create_agent(
-    model="openai:gpt-5.6-terra",
+    model=model,
     tools=[search],
     checkpointer=InMemorySaver(),
 )
@@ -809,15 +812,19 @@ print(review.title, review.rating)  # Inception 9</code></pre>
     ProviderStrategy, ToolStrategy
 )
 
+# ToolStrategy uses function-tool calling under the hood,
+# which requires reasoning_effort="none" on this endpoint.
+model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
+
 # Native (fastest for OpenAI/Anthropic)
 agent = create_agent(
-    model="openai:gpt-5.6-terra",
+    model=model,
     response_format=ProviderStrategy(schema=MovieReview),
 )
 
 # Tool-call based (universal fallback)
 agent = create_agent(
-    model="openai:gpt-5.6-terra",
+    model=model,
     response_format=ToolStrategy(schema=MovieReview),
 )
 
@@ -1071,7 +1078,9 @@ def search_documents(query: str) -> str:
     )
 
 agent = create_agent(
-    model=init_chat_model("openai:gpt-5.6-terra"),
+    model=init_chat_model(
+        "openai:gpt-5.6-terra", reasoning_effort="none"
+    ),
     tools=[search_documents],
     system_prompt=(
         "Always search documents before answering."
@@ -1094,7 +1103,7 @@ agent = create_agent(
                     </ol>
                     <br>
                     <p><strong>langgraph.json</strong> — deployment config</p>
-                    <p>LangSmith auto-traces all runs when <code>LANGCHAIN_TRACING_V2=true</code></p>
+                    <p>LangSmith auto-traces all runs when <code>LANGSMITH_TRACING=true</code></p>
                     <br>
                     <p><strong>Key pattern: lazy init</strong> — vector store built once on first tool call, not at import time</p>
                 </div>
@@ -1142,7 +1151,7 @@ agent = create_agent(
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Automata Learning Lab &nbsp;|&nbsp; Getting Started with LangChain 1.0+ &nbsp;|&nbsp; O'Reilly Live Training &nbsp;|&nbsp; docs.langchain.com &nbsp;|&nbsp; langchain-ai.github.io/langgraph</p>
+        <p>&copy; 2026 Automata Learning Lab &nbsp;|&nbsp; Getting Started with LangChain 1.0+ &nbsp;|&nbsp; O'Reilly Live Training &nbsp;|&nbsp; docs.langchain.com &nbsp;|&nbsp; langchain-ai.github.io/langgraph</p>
     </footer>
 
 </body>
