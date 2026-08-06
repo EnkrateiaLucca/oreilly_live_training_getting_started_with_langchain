@@ -1,0 +1,4 @@
+fastapi
+langchain>=1.0
+langchain-openai
+numpy

@@ -42,6 +42,14 @@ When opening a notebook, select the **oreilly-langchain** kernel (Kernel → Cha
 
 ## Course Structure
 
+### Notebook 0: Agents From Scratch
+[`notebooks/00-langchain-basics-intro.ipynb`](notebooks/00-langchain-basics-intro.ipynb)
+
+Builds intuition before reaching for the framework's abstractions:
+- **Core components** — an LLM, a set of tools, and a loop that ties them together
+- **An agent, from scratch** — manually bind tools to a chat model, detect `tool_calls`, execute them, and loop until the model is done
+- **`create_agent`** — the same task solved in a few lines, so you can see exactly what the abstraction replaces
+
 ### Notebook 1: LangChain 1.0 Fundamentals
 [`notebooks/1.0-langchain-fundamentals.ipynb`](notebooks/1.0-langchain-fundamentals.ipynb)
 
@@ -67,6 +75,27 @@ A complete RAG agent deployed with LangGraph, featuring:
 - LangGraph deployment via `langgraph dev`
 - Agent Chat UI for interactive testing
 - LangSmith observability
+
+### Demo: Local Sandboxed Agent (Ollama)
+[`notebooks/local_agent.py`](notebooks/local_agent.py)
+
+A fully local, self-contained agent (`uv run notebooks/local_agent.py`) that shows `create_agent` running against a local model instead of a hosted API:
+- `init_chat_model("ollama:gemma4")` — no API key required
+- File tools (`read_file`, `write_file`, `edit_file`, `delete_file`) and a `bash` tool, all sandboxed to `notebooks/agent_workspace/` with a path-escape guard and a blocklist for dangerous commands
+- Web search via `TavilySearch`
+- A system prompt that has the agent log a one-line summary of every session to `memory.md`
+
+Requires [Ollama](https://ollama.com/) running locally with the `gemma4` model pulled (`ollama pull gemma4`).
+
+### Demo: Chat-Over-PDFs, Deployed to Vercel
+[`internal-docs-search-agent/`](internal-docs-search-agent/)
+
+The same `create_agent` RAG pattern from the `demo/` app, taken all the way to a public web deployment on Vercel — a single-page chat UI next to a PDF viewer that jumps to the cited page:
+- Vector index pre-built offline into a JSON file (`scripts/build_index.py`) since serverless can't host Chroma — the deployed function loads it and does cosine similarity with numpy
+- One-file FastAPI app (`main.py`) serving the agent, the `/api/chat` endpoint, and the embedded chat/viewer UI
+- Full architecture, deploy steps, and gotchas in [`internal-docs-search-agent/DEPLOYMENT_GUIDE.md`](internal-docs-search-agent/DEPLOYMENT_GUIDE.md)
+
+This deployment is torn down between classes to avoid an idle public endpoint burning API credits — follow the deployment guide to bring it back up live.
 
 ## Live Demo
 
