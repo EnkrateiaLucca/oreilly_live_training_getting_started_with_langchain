@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Soares - AI Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue/Gray */
+            --secondary-color: #3498db; /* Bright Blue for accents */
+            --background-light: #ecf0f1; /* Light Gray Background */
+            --text-dark: #333;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--secondary-color);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: var(--primary-color);
+        }
+
+        header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--background-light);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        .section-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            flex: 1 1 calc(33% - 20px); /* Default to three columns */
+            min-width: 280px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 24 24' fill='none' stroke='%233498db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%20M22 12h-4l-3 9L6 3l-3 9H2'%3E%20/></svg;") no-repeat left center;
+            background-size: 12px;
+            padding-left: 15px;
+            margin-bottom: 8px;
+        }
+
+        .technology-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tech-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 calc(50% - 20px); /* Two columns on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                flex: 1 1 100%; /* Single column on phones */
+            }
+            .container {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Lucas Soares</h1>
+            <p>AI Engineering & Advanced Learning Specialist Portfolio</p>
+        </header>
+
+        <!-- SECTION 1: Featured Courses (Automata) -->
+        <section id="automata-courses">
+            <h2>🧠 Automated Learning Workflow</h2>
+            <div class="card">
+                <h3>Anki + Claude Code For Learning and Memorization</h3>
+                <p>A robust workflow combining Anki's spaced repetition system with advanced AI tools (Claude/ChatGPT) to transform diverse content sources into actionable flashcards.</p>
+                <ul>
+                    <li><strong>Focus:</strong> Efficient learning, knowledge retention, and building data-driven memory systems.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Professional Expertise (O'Reilly) -->
+        <section id="professional-expertise">
+            <h2>⚙️ Industry & Advanced AI Engineering</h2>
+            <div class="section-container">
+                
+                <div class="card" style="flex-basis: 100%;">
+                    <h3>LLM Applications and Agentic Workflows</h3>
+                    <p>Deep instruction on building complex, production-ready applications using modern frameworks that enable LLMs to interact with external tools and data.</p>
+                    <h4>Core Technologies Mastery:</h4>
+                    <div class="technology-list">
+                        <span class="tech-badge">LangGraph</span>
+                        <span class="tech-badge">LangChain</span>
+                        <span class="tech-badge">Pydantic</span>
+                        <span class="tech-badge">Model Context Protocol (MCP)</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: General Expertise -->
+        <section id="general-expertise">
+            <h2>🚀 Areas of Deep Expertise</h2>
+            <div class="section-container" style="flex-wrap: wrap; gap: 15px;">
+                
+                <div class="card" style="flex: 1 1 calc(33% - 20px); min-width: 250px;">
+                    <h3>AI Engineering Best Practices</h3>
+                    <ul>
+                        <li>LLM deployment and scalability.</li>
+                        <li>Building robust, stateful agents.</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="flex: 1 1 calc(33% - 20px); min-width: 250px;">
+                    <h3>Computer Vision & Deep Learning</h3>
+                    <ul>
+                        <li>OCR applications and text extraction.</li>
+                        <li>Image segmentation and advanced anomaly/spoof detection.</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="flex: 1 1 calc(33% - 20px); min-width: 250px;">
+                    <h3>Deep Learning Optimization</h3>
+                    <ul>
+                        <li>Hyperparameter tuning for optimal model performance.</li>
+                        <li>Advanced Regularization and model optimization techniques.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+- Go through my codebase and answer queries related to the code
+- mcp/access my calendar (maybe)
+- Context, Instructions, Goals (files that represent these different things)

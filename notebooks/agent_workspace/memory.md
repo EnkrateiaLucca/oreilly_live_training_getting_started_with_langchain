@@ -1,0 +1,1 @@
+* Researched and summarized the concept of memory in LangChain, writing a three-sentence summary to 'memory-langchain.md'.

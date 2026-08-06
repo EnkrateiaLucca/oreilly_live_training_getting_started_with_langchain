@@ -1,0 +1,19 @@
+**Latest and Featured Courses by Lucas Soares (O'Reilly & Automata Learning Lab)**
+
+Based on recent online presence, Lucas Soares specializes in advanced AI engineering topics focusing on LLMs, Agents, and robust application workflows.
+
+**From Automata Learning Lab:**
+*   **Anki + Claude Code For Learning and Memorization:** A course utilizing Anki's spaced repetition system with AI tools (Claude/ChatGPT) to create flashcards from various content sources (articles, PDFs, YouTube videos). (Focus: Learning and Memory Workflow)
+
+**From O'Reilly Media & Professional Experience:**
+*   **LLM-based Applications and Agentic Workflows:** Instruction on building complex applications using modern frameworks.
+*   **AI Engineering Topics:** Deep dives into the latest best practices in AI development.
+*   **Core Technologies Covered:**
+    *   LangGraph
+    *   Pydantic
+    *   LangChain
+    *   Model Context Protocol (MCP): Teaching how to connect LLMs with external tools and data for production-level agent design.
+
+**General Areas of Expertise & Training:**
+*   Computer Vision and Deep Learning (OCR applications, segmentation, spoof detection).
+*   Improving Deep Neural Networks: Hyperparameter tuning, Regularization, and Optimization.
