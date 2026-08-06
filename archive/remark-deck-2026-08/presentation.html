@@ -197,11 +197,63 @@
 
       ---
 
+      # The Core Components of an Agent
+
+      --
+
+      - __LLM__ — the reasoning engine; given a conversation, decides what to say, or which tool to call
+
+      --
+
+      - __Tools__ — plain `@tool`-decorated functions the LLM can ask to run; the LLM never executes them itself, *your code* does
+
+      --
+
+      - __Loop__ — call the model → did it ask for a tool? → run the tool → feed a `ToolMessage` back → call the model again → repeat until no more `tool_calls`
+
+      --
+
+      - `create_agent()` later is just a packaged version of that loop
+
+      ---
+
+      # Building an Agent, By Hand
+
+      --
+
+        ```python
+        model_with_tools = model.bind_tools(tools)
+
+        messages = [SystemMessage(...), HumanMessage("Create a folder called 'notes'.")]
+        ai_message = model_with_tools.invoke(messages)
+        # ai_message.tool_calls -> [{name, args, id}, ...]
+
+        messages.append(ai_message)
+        for call in ai_message.tool_calls:
+            tool_fn = tools_by_name[call["name"]]
+            result = tool_fn.invoke(call["args"])
+            messages.append(ToolMessage(content=str(result), tool_call_id=call["id"]))
+        ```
+
+      --
+
+      - Wrap it in a loop: keep calling the model until `ai_message.tool_calls` is empty
+
+      --
+
+      - That's the whole loop — `create_agent()` on the next slide just packages it
+
+      ---
+
       # Agents — `create_agent()`
 
       --
 
       - The central API in LangChain 1.0 — __replaces the old executor-based agent runtime__
+
+      --
+
+      - Same loop as the by-hand version — `bind_tools()`, `tool_calls`, `ToolMessage` — just packaged for you; full before/after table in `notebooks/00-langchain-basics-intro.ipynb`
 
       --
 
@@ -300,6 +352,8 @@
       </div>
 
       - __`create_agent()`__ is the primary entry point — it replaces manually piping `prompt | llm | output_parser`.
+
+      - __agent = LLM + tools + loop__, and `create_agent()` packages that loop — you saw it built by hand, then in three lines.
 
       <div style="margin-top: 22px; padding: 12px 20px; background-color: #fdf1f1; border: 1px solid #e3a9a9; border-left: 6px solid #b00000; border-radius: 6px; font-size: 19px; color: #333;">
         <strong style="color: #b00000;">Optional Exercise (during Q&amp;A):</strong> Create a simple agent with <code style="font-size: 17px;">create_agent()</code> that summarizes content.
@@ -583,6 +637,35 @@
 
       ---
 
+      # Demo: A Fully Local Agent
+
+      --
+
+      - Runs against __Ollama__ (`init_chat_model("ollama:gemma4")`) instead of a hosted API — no API key required
+
+      --
+
+      - Same `create_agent()` API — only the model changes
+
+      --
+
+      - Sandboxed file tools (`read_file`, `write_file`, `edit_file`, `delete_file`) and a `bash` tool, all confined to `notebooks/agent_workspace/` with a path-escape guard and a command blocklist
+
+      --
+
+      - Logs a one-line summary of every session to `memory.md`
+
+      ---
+      class: center, middle
+
+      <h2>
+      <span style="background-color: lightgreen">
+       Demo: Local Sandboxed Agent (Ollama)
+      </span>
+      </h2>
+
+      ---
+
       # Poll Question
 
       ```text
@@ -863,6 +946,26 @@
       - Optional: enable `LANGSMITH_TRACING=true` to trace every run in LangSmith
 
       ---
+
+      # Beyond Local — Deploying to the Web
+
+      --
+
+      - Same `create_agent()` + retrieval-`@tool` pattern as the local RAG demo (`demo/agent.py`) — shipped as a public __FastAPI app on Vercel__ (`internal-docs-search-agent/`)
+
+      --
+
+      - Vector index __pre-computed offline__ into a JSON file — serverless can't host Chroma, so the deployed function loads the JSON and does cosine similarity with numpy
+
+      --
+
+      - One-file FastAPI app serves the agent, a `/api/chat` endpoint, and an embedded chat UI with a __PDF viewer pane that jumps to the cited page__
+
+      --
+
+      - Torn down between classes for cost control — this is "here's how you'd take it from local to a public app," not a live persistent URL
+
+      ---
       class: center, middle
 
       <h2>
@@ -882,6 +985,8 @@
       - The demo agent (`demo/agent.py`) is a RAG-over-docs agent — the same `create_agent()` + retrieval `@tool` pattern from the RAG section.
 
       - __LangSmith__ traces tool calls, token usage, and full conversation history when tracing is enabled.
+
+      - The same agent pattern scales from `langgraph dev` locally all the way to a real public deployment (see `internal-docs-search-agent/`).
 
       ---
 
