@@ -66,7 +66,7 @@ from documents.
 agent = create_agent(
     # Reasoning models need reasoning_effort="none" to use function tools
     # on the /v1/chat/completions endpoint.
-    model=init_chat_model("openai:gpt-5.6-luna", reasoning_effort="none"),
+    model=init_chat_model("openai:gpt-6-luna", reasoning_effort="none"),
     tools=[search_documents],
     system_prompt=SYSTEM_PROMPT,
 )
