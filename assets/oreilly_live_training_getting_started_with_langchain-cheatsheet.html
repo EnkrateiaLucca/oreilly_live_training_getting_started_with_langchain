@@ -122,6 +122,13 @@
             margin-bottom: 10pt;
         }
 
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6pt;
+            margin-bottom: 10pt;
+        }
+
         /* Cards */
         .card {
             border: 1.5px solid #1a1a2e;
@@ -435,7 +442,11 @@
     <!-- ===== COURSE AT A GLANCE ===== -->
     <div class="section-title blue">Course at a Glance</div>
 
-    <div class="grid-4">
+    <div class="grid-5">
+        <div class="icon-box">
+            <div class="icon-placeholder">00</div>
+            <div class="icon-label">Agents from Scratch</div>
+        </div>
         <div class="icon-box">
             <div class="icon-placeholder">1</div>
             <div class="icon-label">Fundamentals</div>
@@ -449,8 +460,8 @@
             <div class="icon-label">RAG</div>
         </div>
         <div class="icon-box">
-            <div class="icon-placeholder">★</div>
-            <div class="icon-label">Demo Deploy</div>
+            <div class="icon-placeholder">&#9733;</div>
+            <div class="icon-label">Demos</div>
         </div>
     </div>
 
@@ -501,7 +512,7 @@ result = agent.invoke({"messages": "Hello"})
 result["messages"][-1].pretty_print()
 
 # Minimal (3 lines)
-agent = create_agent(model="openai:gpt-5.6-terra", tools=[])
+agent = create_agent(model="openai:gpt-6-luna", tools=[])
 result = agent.invoke({"messages": "What is LangChain?"})</code></pre>
         </div>
         <div class="code-card">
@@ -510,7 +521,7 @@ result = agent.invoke({"messages": "What is LangChain?"})</code></pre>
 
 search = TavilySearch(max_results=5)
 # Reasoning models need reasoning_effort="none" to use function tools
-model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
+model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
 
 agent = create_agent(
     model=model,
@@ -535,7 +546,7 @@ for step in agent.stream(
             <div class="code-card-header">init_chat_model() — 3 invocation modes</div>
             <pre><code>from langchain.chat_models import init_chat_model
 
-model = init_chat_model("openai:gpt-5.6-terra")
+model = init_chat_model("openai:gpt-6-luna")
 
 # invoke() — single response
 r = model.invoke("Why is the sky blue?")
@@ -555,10 +566,10 @@ for r in responses:
             <table>
                 <thead><tr><th>Provider</th><th>String Format</th><th>Package</th></tr></thead>
                 <tbody>
-                    <tr><td>OpenAI</td><td><code>"openai:gpt-5.6-terra"</code></td><td>langchain-openai</td></tr>
-                    <tr><td>Anthropic</td><td><code>"anthropic:claude-sonnet-4-6"</code></td><td>langchain-anthropic</td></tr>
-                    <tr><td>Google</td><td><code>"google_genai:gemini-2.0-flash"</code></td><td>langchain-google-genai</td></tr>
-                    <tr><td>Ollama</td><td><code>"ollama:gemma3"</code></td><td>langchain-ollama</td></tr>
+                    <tr><td>OpenAI</td><td><code>"openai:gpt-6-luna"</code></td><td>langchain-openai</td></tr>
+                    <tr><td>Anthropic</td><td><code>"anthropic:claude-haiku-5-5"</code></td><td>langchain-anthropic</td></tr>
+                    <tr><td>Google</td><td><code>"google_genai:gemini-3.5-flash-lite"</code></td><td>langchain-google-genai</td></tr>
+                    <tr><td>Ollama</td><td><code>"ollama:gemma4"</code></td><td>langchain-ollama</td></tr>
                 </tbody>
             </table>
         </div>
@@ -671,7 +682,7 @@ def get_account_info(
             <div class="code-card-header">Memory with checkpointer</div>
             <pre><code>from langgraph.checkpoint.memory import InMemorySaver
 
-model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
+model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
 agent = create_agent(
     model=model,
     tools=[search],
@@ -775,7 +786,7 @@ class ContactInfo(TypedDict):
     phone: str
 
 agent = create_agent(
-    model="openai:gpt-5.6-terra",
+    model="openai:gpt-6-luna",
     response_format=ContactInfo,
 )
 
@@ -798,7 +809,7 @@ class MovieReview(BaseModel):
     recommended: bool
 
 agent = create_agent(
-    model="openai:gpt-5.6-terra",
+    model="openai:gpt-6-luna",
     response_format=MovieReview,
 )
 result = agent.invoke({
@@ -829,7 +840,7 @@ print(review.title, review.rating)  # Inception 9</code></pre>
 
 # ToolStrategy uses function-tool calling under the hood,
 # which requires reasoning_effort="none" on this endpoint.
-model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
+model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
 
 # Native (fastest for OpenAI/Anthropic)
 agent = create_agent(
@@ -876,7 +887,7 @@ class JobFitEvaluation(BaseModel):
         <div class="code-card">
             <div class="code-card-header">Using structured output for batch comparison</div>
             <pre><code>resume_agent = create_agent(
-    model="openai:gpt-5.6-terra",
+    model="openai:gpt-6-luna",
     system_prompt="You are a technical recruiter.",
     response_format=JobFitEvaluation,
 )
@@ -1058,39 +1069,42 @@ chain2 = create_agent(model, tools=[], middleware=[RetrieveDocs()])</code></pre>
             <pre><code>from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 from langchain_core.tools import tool
+from langchain_tavily import TavilySearch
 
-_retriever = None
+def _build_retriever():
+    docs = WebBaseLoader(URLS).load()
+    splits = RecursiveCharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=200
+    ).split_documents(docs)
+    vs = Chroma.from_documents(
+        documents=splits,
+        embedding=OpenAIEmbeddings(
+            model="text-embedding-3-small"),
+        collection_name="course_docs",
+    )
+    return vs.as_retriever(search_kwargs={"k": 4})
 
-def get_retriever():
-    """Lazily build vector store on first use."""
-    global _retriever
-    if _retriever is None:
-        # load → split → embed → store (once)
-        _retriever = vectorstore.as_retriever(
-            search_kwargs={"k": 4}
-        )
-    return _retriever
+# Eager: built once, at import time
+_retriever = _build_retriever()
 
 @tool
 def search_documents(query: str) -> str:
-    """Search loaded docs for relevant information."""
-    docs = get_retriever().invoke(query)
+    """Search the loaded documents."""
+    docs = _retriever.invoke(query)
     return "\n\n".join(
-        f"[Source: {d.metadata['source']}]\n"
-        f"{d.page_content}"
-        for d in docs
+        f"[Source: {d.metadata.get('source')}]\n"
+        f"{d.page_content}" for d in docs
     )
+
+search = TavilySearch(max_results=5)  # web
 
 agent = create_agent(
     model=init_chat_model(
-        "openai:gpt-5.6-terra", reasoning_effort="none"
+        "openai:gpt-6-luna", reasoning_effort="none"
     ),
-    tools=[search_documents],
-    system_prompt=(
-        "Always search documents before answering."
-        " Cite your sources."
-    ),
-    # No checkpointer — langgraph dev handles persistence
+    tools=[search_documents, search],
+    system_prompt=SYSTEM_PROMPT,
+    # No checkpointer — langgraph dev persists
 )</code></pre>
         </div>
         <div class="card">
@@ -1109,7 +1123,7 @@ agent = create_agent(
                 <p><strong>langgraph.json</strong> — deployment config</p>
                 <p>LangSmith auto-traces all agent runs when <code>LANGSMITH_TRACING=true</code></p>
                 <br>
-                <p><strong>Key pattern: lazy init</strong> — vector store built once on first tool call, not at import time</p>
+                <p><strong>Key pattern: eager init</strong> — <code>_retriever = _build_retriever()</code> builds the vector store once at import time; <code>TavilySearch</code> answers off-topic questions</p>
             </div>
         </div>
     </div>
@@ -1152,7 +1166,7 @@ agent = create_agent(
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Automata Learning Lab &nbsp;|&nbsp; Getting Started with LangChain 1.0+ &nbsp;|&nbsp; O'Reilly Live Training &nbsp;|&nbsp; docs.langchain.com &nbsp;|&nbsp; langchain-ai.github.io/langgraph</p>
+        <p>© 2026 Automata Learning Lab &nbsp;|&nbsp; Getting Started with LangChain 1.0+ &nbsp;|&nbsp; O'Reilly Live Training &nbsp;|&nbsp; docs.langchain.com &nbsp;|&nbsp; docs.langchain.com/oss/python/langgraph/overview</p>
     </footer>
 
 </body>
