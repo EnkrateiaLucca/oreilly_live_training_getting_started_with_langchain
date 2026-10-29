@@ -7,7 +7,7 @@ paginate: true
 <!-- _class: lead dark -->
 <!-- _paginate: false -->
 
-<div class="kicker">O'Reilly Live Training · August 2026</div>
+<div class="kicker">O'Reilly Live Training · November 2026</div>
 
 # Getting Started with <em>LangChain</em>
 
@@ -107,7 +107,7 @@ Build one by hand first — so the abstraction is a shortcut, not a black box.
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage, SystemMessage
 
-model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
+model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
 
 response = model.invoke([
     SystemMessage(content="You tell jokes."),
@@ -281,10 +281,10 @@ Six building blocks you'll use in every app.
 
 | Provider | Model string | Package |
 |---|---|---|
-| OpenAI | `openai:gpt-5.6-terra` | `langchain-openai` |
-| Anthropic | `anthropic:claude-sonnet-4-6` | `langchain-anthropic` |
-| Google | `google_genai:gemini-3.1-flash` | `langchain-google-genai` |
-| Local (Ollama) | `ollama:gemma3` | `langchain-ollama` |
+| OpenAI | `openai:gpt-6-luna` | `langchain-openai` |
+| Anthropic | `anthropic:claude-haiku-5-5` | `langchain-anthropic` |
+| Google | `google_genai:gemini-3.5-flash-lite` | `langchain-google-genai` |
+| Local (Ollama) | `ollama:gemma4` | `langchain-ollama` |
 
 * Three call styles: **`invoke()`** one response · **`stream()`** token by token · **`batch()`** parallel
 
@@ -354,7 +354,7 @@ agent.invoke({"messages": "What's my name?"}, config)   # remembers
 
 > <span class="mark">"</span>Reasoning models need `reasoning_effort="none"` to call function tools.<span class="mark">"</span>
 
-<div class="by">— the course gotcha: whenever an agent has tools, build the model with<br><code>init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")</code></div>
+<div class="by">— the course gotcha: whenever an agent has tools, build the model with<br><code>init_chat_model("openai:gpt-6-luna", reasoning_effort="none")</code></div>
 
 ---
 
@@ -443,7 +443,7 @@ class MovieReview(BaseModel):
     key_points: List[str]
     recommended: bool
 
-agent = create_agent(model="openai:gpt-5.6-terra", response_format=MovieReview)
+agent = create_agent(model="openai:gpt-6-luna", response_format=MovieReview)
 result = agent.invoke({"messages": "Analyze this review: ..."})
 review = result["structured_response"]     # a validated MovieReview
 ```
@@ -711,7 +711,7 @@ Questions → lucas@automata-learning-lab · course repo has every notebook, dem
 
 - [LangChain documentation](https://docs.langchain.com/)
 - [LangChain agents guide](https://docs.langchain.com/oss/python/langchain/agents)
-- [LangGraph](https://langchain-ai.github.io/langgraph/) · [LangSmith](https://smith.langchain.com/)
+- [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview) · [LangSmith](https://smith.langchain.com/)
 - [Agent Chat UI](https://github.com/langchain-ai/agent-chat-ui)
 - [ReAct paper](https://arxiv.org/abs/2210.03629) · [Toolformer](https://arxiv.org/pdf/2302.04761.pdf)
 - [Karpathy on agents](https://www.youtube.com/watch?v=fqVLjtvWgq8)
