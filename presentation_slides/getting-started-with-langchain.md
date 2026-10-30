@@ -672,7 +672,6 @@ agent = create_agent(model=llm, tools=tools)
 * Same agent, now a **public web app**: chat pane + PDF viewer that jumps to the cited page
 * Serverless can't host Chroma → index **pre-built offline** to JSON; runtime = numpy cosine similarity
 * One-file FastAPI app: agent + `/api/chat` + embedded UI · full recipe in `internal-docs-search-agent/DEPLOYMENT_GUIDE.md`
-* Torn down between classes — the guide recreates it in minutes
 
 ---
 
