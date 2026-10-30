@@ -64,9 +64,9 @@ from documents.
 - Be concise but thorough."""
 
 agent = create_agent(
-    # Reasoning models need reasoning_effort="none" to use function tools
-    # on the /v1/chat/completions endpoint.
-    model=init_chat_model("openai:gpt-6-luna", reasoning_effort="none"),
+    # OpenAI's Responses API (recommended for new projects): reasoning models
+    # like gpt-6-luna call function tools there without extra flags.
+    model=init_chat_model("openai:gpt-6-luna", use_responses_api=True),
     tools=[search_documents],
     system_prompt=SYSTEM_PROMPT,
 )
@@ -102,7 +102,7 @@ def chat(req: ChatRequest):
                     seen.add((name, page))
                     # PyPDF pages are 0-indexed; browser #page= is 1-indexed.
                     sources.append({"file": name, "page": int(page) + 1})
-    return {"reply": msgs[-1].content, "sources": sources}
+    return {"reply": msgs[-1].text, "sources": sources}
 
 
 CHAT_PAGE = """<!doctype html>
