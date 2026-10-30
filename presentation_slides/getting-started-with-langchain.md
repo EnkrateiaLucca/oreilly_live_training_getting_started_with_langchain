@@ -107,6 +107,7 @@ Build one by hand first — so the abstraction is a shortcut, not a black box.
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage, SystemMessage
 
+# use_responses_api=True: the Responses API, OpenAI's recommended API
 model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 
 response = model.invoke([
@@ -347,12 +348,6 @@ agent.invoke({"messages": "What's my name?"}, config)   # remembers
 | `"values"` | full state after each step | inspecting agent steps |
 | `"messages"` | `(token, metadata)` tuples | chat UX, token by token |
 | `"custom"` | your own events via `get_stream_writer()` | tool progress updates |
-
----
-
-<!-- _class: dark quote -->
-
-> <span class="mark">"</span>We pass `use_responses_api=True` and read results with `.text`. OpenAI's recommended API.<span class="mark">"</span>
 
 ---
 
