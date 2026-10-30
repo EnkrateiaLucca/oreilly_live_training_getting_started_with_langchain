@@ -48,3 +48,5 @@ walkthrough.md
 chroma-db/
 notebooks/research.md
 
+# Notebook 00 sandbox output (the agent creates folders/files here)
+notebooks/agent_workspace/00-intro-sandbox/
