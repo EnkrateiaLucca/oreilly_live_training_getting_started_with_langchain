@@ -352,9 +352,7 @@ agent.invoke({"messages": "What's my name?"}, config)   # remembers
 
 <!-- _class: dark quote -->
 
-> <span class="mark">"</span>This course uses OpenAI's Responses API: `use_responses_api=True`, the API OpenAI recommends for new projects.<span class="mark">"</span>
-
-<div class="by">— the course gotcha: <code>ChatOpenAI</code> defaults to Chat Completions, where gpt-6-luna only calls tools with <code>reasoning_effort="none"</code> and some tiers can't call tools at all.<br>And <code>.content</code> is now a list of blocks, so read output with <code>.text</code></div>
+> <span class="mark">"</span>We pass `use_responses_api=True` and read results with `.text`. OpenAI's recommended API.<span class="mark">"</span>
 
 ---
 
