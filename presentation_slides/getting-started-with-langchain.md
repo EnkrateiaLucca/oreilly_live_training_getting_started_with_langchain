@@ -7,7 +7,7 @@ paginate: true
 <!-- _class: lead dark -->
 <!-- _paginate: false -->
 
-<div class="kicker">O'Reilly Live Training · August 2026</div>
+<div class="kicker">O'Reilly Live Training · November 2026</div>
 
 # Getting Started with <em>LangChain</em>
 
@@ -107,13 +107,14 @@ Build one by hand first — so the abstraction is a shortcut, not a black box.
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage, SystemMessage
 
-model = init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")
+# use_responses_api=True: the Responses API, OpenAI's recommended API
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 
 response = model.invoke([
     SystemMessage(content="You tell jokes."),
     HumanMessage(content="Tell me a joke about a bald teacher."),
 ])
-print(response.content)   # an AIMessage — text in, text out
+print(response.text)   # an AIMessage — read its text with .text
 ```
 
 No tools, no loop — the model can only *talk*. Let's give it hands.
@@ -175,7 +176,7 @@ def run_agent_loop(user_task: str, max_iters: int = 5):
         ai_message = model_with_tools.invoke(messages)
         messages.append(ai_message)
         if not ai_message.tool_calls:          # done — no more tool requests
-            return ai_message.content
+            return ai_message.text
         for call in ai_message.tool_calls:     # execute each requested tool
             result = tools_by_name[call["name"]].invoke(call["args"])
             messages.append(ToolMessage(content=str(result),
@@ -281,10 +282,10 @@ Six building blocks you'll use in every app.
 
 | Provider | Model string | Package |
 |---|---|---|
-| OpenAI | `openai:gpt-5.6-terra` | `langchain-openai` |
-| Anthropic | `anthropic:claude-sonnet-4-6` | `langchain-anthropic` |
-| Google | `google_genai:gemini-3.1-flash` | `langchain-google-genai` |
-| Local (Ollama) | `ollama:gemma3` | `langchain-ollama` |
+| OpenAI | `openai:gpt-6-luna` | `langchain-openai` |
+| Anthropic | `anthropic:claude-haiku-5-5` | `langchain-anthropic` |
+| Google | `google_genai:gemini-3.5-flash-lite` | `langchain-google-genai` |
+| Local (Ollama) | `ollama:gemma4` | `langchain-ollama` |
 
 * Three call styles: **`invoke()`** one response · **`stream()`** token by token · **`batch()`** parallel
 
@@ -347,14 +348,6 @@ agent.invoke({"messages": "What's my name?"}, config)   # remembers
 | `"values"` | full state after each step | inspecting agent steps |
 | `"messages"` | `(token, metadata)` tuples | chat UX, token by token |
 | `"custom"` | your own events via `get_stream_writer()` | tool progress updates |
-
----
-
-<!-- _class: dark quote -->
-
-> <span class="mark">"</span>Reasoning models need `reasoning_effort="none"` to call function tools.<span class="mark">"</span>
-
-<div class="by">— the course gotcha: whenever an agent has tools, build the model with<br><code>init_chat_model("openai:gpt-5.6-terra", reasoning_effort="none")</code></div>
 
 ---
 
@@ -443,7 +436,8 @@ class MovieReview(BaseModel):
     key_points: List[str]
     recommended: bool
 
-agent = create_agent(model="openai:gpt-5.6-terra", response_format=MovieReview)
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
+agent = create_agent(model=model, response_format=MovieReview)
 result = agent.invoke({"messages": "Analyze this review: ..."})
 review = result["structured_response"]     # a validated MovieReview
 ```
@@ -457,7 +451,7 @@ review = result["structured_response"]     # a validated MovieReview
 | How | provider's native structured-output API | tool-calling to extract |
 | Works with | OpenAI · Anthropic · Gemini | any tool-capable model |
 | Speed | fastest | one extra hop |
-| Gotcha | — | needs `reasoning_effort="none"` |
+| Gotcha | — | needs tool calling: `use_responses_api=True` for gpt-6-luna |
 
 * Pass the schema directly (`response_format=MovieReview`) and LangChain **auto-picks**
 
@@ -496,7 +490,7 @@ Typed results, nested models, batch scoring
 ```text
 With response_format=MyPydanticModel, where does the typed result appear?
 
-  A. result["messages"][-1].content, as a JSON string to parse
+  A. result["messages"][-1].text, as a JSON string to parse
   B. result["structured_response"], as a validated model instance
   C. It's written to a file next to the notebook
   D. In a separate .schema attribute on the agent
@@ -671,7 +665,6 @@ agent = create_agent(model=llm, tools=tools)
 * Same agent, now a **public web app**: chat pane + PDF viewer that jumps to the cited page
 * Serverless can't host Chroma → index **pre-built offline** to JSON; runtime = numpy cosine similarity
 * One-file FastAPI app: agent + `/api/chat` + embedded UI · full recipe in `internal-docs-search-agent/DEPLOYMENT_GUIDE.md`
-* Torn down between classes — the guide recreates it in minutes
 
 ---
 
@@ -701,7 +694,7 @@ The same `create_agent()` pattern, three deployment stories
 
 # Thanks for <em>building</em> along
 
-Questions → lucas@automata-learning-lab · course repo has every notebook, demo, and deploy guide
+Questions → lucasenkrateia@gmail.com · course repo has every notebook, demo, and deploy guide
 
 ---
 
@@ -711,7 +704,7 @@ Questions → lucas@automata-learning-lab · course repo has every notebook, dem
 
 - [LangChain documentation](https://docs.langchain.com/)
 - [LangChain agents guide](https://docs.langchain.com/oss/python/langchain/agents)
-- [LangGraph](https://langchain-ai.github.io/langgraph/) · [LangSmith](https://smith.langchain.com/)
+- [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview) · [LangSmith](https://smith.langchain.com/)
 - [Agent Chat UI](https://github.com/langchain-ai/agent-chat-ui)
 - [ReAct paper](https://arxiv.org/abs/2210.03629) · [Toolformer](https://arxiv.org/pdf/2302.04761.pdf)
 - [Karpathy on agents](https://www.youtube.com/watch?v=fqVLjtvWgq8)

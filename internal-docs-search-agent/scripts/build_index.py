@@ -11,7 +11,7 @@
 """Pre-build the document index for deployment.
 
 Loads the PDFs in docs/, splits them, embeds each chunk, and writes
-api/index_data.json so the deployed function never has to parse PDFs
+index_data.json (next to main.py) so the deployed function never has to parse PDFs
 or talk to a vector database — it just loads the JSON.
 
 Run whenever the PDFs change:  uv run scripts/build_index.py
@@ -48,7 +48,6 @@ data = [
     for d, v in zip(splits, vectors)
 ]
 
-out = ROOT / "api" / "index_data.json"
-out.parent.mkdir(exist_ok=True)
+out = ROOT / "index_data.json"
 out.write_text(json.dumps(data))
 print(f"Wrote {len(data)} chunks to {out}")

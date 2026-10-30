@@ -2,7 +2,7 @@
 
 [![LangChain](https://img.shields.io/badge/LangChain-1.0+-blue)](https://docs.langchain.com/)
 [![Python](https://img.shields.io/badge/Python-3.11--3.13-yellow)](https://www.python.org/)
-[![LangGraph](https://img.shields.io/badge/LangGraph-1.0+-green)](https://langchain-ai.github.io/langgraph/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-1.0+-green)](https://docs.langchain.com/oss/python/langgraph/overview)
 
 O'Reilly Live Training — Build AI agents with LangChain 1.0 and LangGraph.
 
@@ -67,6 +67,13 @@ Covers the 6 essential building blocks:
 - **Structured Output Fundamentals** — ProviderStrategy, ToolStrategy, Pydantic schemas
 - **Resume Analyzer & Job-Fit Scorer** — Real-world application with nested data models
 
+### Notebook 3: RAG with LangChain
+[`notebooks/3.0-rag-with-langchain.ipynb`](notebooks/3.0-rag-with-langchain.ipynb)
+
+- **Indexing Pipeline** — Load, split, embed, and store documents in a vector store
+- **RAG Agent** — An agent that decides when to search, using a retrieval tool
+- **RAG Chain** — A single-pass retrieve-then-answer flow using `@dynamic_prompt` middleware
+
 ### Demo: Deployable Chat-Over-Docs Agent
 [`demo/`](demo/)
 
@@ -108,13 +115,14 @@ Then visit [agentchat.vercel.app](https://agentchat.vercel.app) and connect to `
 
 ## Previous Course Materials
 
-- `deprecated/` — Pre-April 2026 course materials
+- `archive/deprecated/` — Pre-April 2026 course materials
 - `archive/pre-v1/` — Pre-LangChain 1.0 materials
+- `archive/remark-deck-2026-08/` — Previous remark.js slide deck (August 2026)
 
 ## Resources
 
 - [LangChain Documentation](https://docs.langchain.com/)
-- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
+- [LangGraph Documentation](https://docs.langchain.com/oss/python/langgraph/overview)
 - [LangSmith](https://smith.langchain.com/) — Tracing and debugging
 - [Agent Chat UI](https://github.com/langchain-ai/agent-chat-ui)
 

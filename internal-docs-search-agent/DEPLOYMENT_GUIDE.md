@@ -72,9 +72,9 @@ top = np.argsort(sims)[-4:][::-1]
 
 ```python
 agent = create_agent(
-    # Reasoning models need reasoning_effort="none" to use function tools
-    # on the /v1/chat/completions endpoint.
-    model=init_chat_model("openai:gpt-5.6-luna", reasoning_effort="none"),
+    # OpenAI's Responses API (recommended for new projects): reasoning models
+    # like gpt-6-luna call function tools there without extra flags.
+    model=init_chat_model("openai:gpt-6-luna", use_responses_api=True),
     tools=[search_documents],
     system_prompt=SYSTEM_PROMPT,   # search first, cite (doc, page), admit gaps
 )
@@ -163,8 +163,10 @@ curl -s -X POST https://<project>.vercel.app/api/chat \
    default. With Fluid compute (current default) it's fine; if you ever need
    it explicit, that's the one reason to add a `vercel.json`
    (`functions.main.py.maxDuration`).
-7. The `reasoning_effort="none"` on `init_chat_model` is required for the
-   reasoning model to use function tools on `/v1/chat/completions`.
+7. The model runs on OpenAI's Responses API (`use_responses_api=True`); on Chat
+   Completions the reasoning model only calls function tools at reasoning effort
+   "none". On Responses an AI message's `content` is a list of blocks, so
+   `/api/chat` returns `msgs[-1].text`, not `.content`.
 
 ## Tearing it down
 

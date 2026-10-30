@@ -78,9 +78,9 @@ from documents.
 - Be concise but thorough."""
 
 agent = create_agent(
-    # Reasoning models need reasoning_effort="none" to use function tools
-    # on the /v1/chat/completions endpoint.
-    model=init_chat_model("openai:gpt-5.6-luna", reasoning_effort="none"),
+    # OpenAI's Responses API (recommended for new projects): reasoning models
+    # like gpt-6-luna call function tools there without extra flags.
+    model=init_chat_model("openai:gpt-6-luna", use_responses_api=True),
     tools=[search_documents],
     system_prompt=SYSTEM_PROMPT,
     # No checkpointer needed — langgraph dev provides persistence automatically
