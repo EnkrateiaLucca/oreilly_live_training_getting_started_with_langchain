@@ -107,13 +107,13 @@ Build one by hand first — so the abstraction is a shortcut, not a black box.
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage, SystemMessage
 
-model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 
 response = model.invoke([
     SystemMessage(content="You tell jokes."),
     HumanMessage(content="Tell me a joke about a bald teacher."),
 ])
-print(response.content)   # an AIMessage — text in, text out
+print(response.text)   # an AIMessage — read its text with .text
 ```
 
 No tools, no loop — the model can only *talk*. Let's give it hands.
@@ -175,7 +175,7 @@ def run_agent_loop(user_task: str, max_iters: int = 5):
         ai_message = model_with_tools.invoke(messages)
         messages.append(ai_message)
         if not ai_message.tool_calls:          # done — no more tool requests
-            return ai_message.content
+            return ai_message.text
         for call in ai_message.tool_calls:     # execute each requested tool
             result = tools_by_name[call["name"]].invoke(call["args"])
             messages.append(ToolMessage(content=str(result),
@@ -352,9 +352,9 @@ agent.invoke({"messages": "What's my name?"}, config)   # remembers
 
 <!-- _class: dark quote -->
 
-> <span class="mark">"</span>Reasoning models need `reasoning_effort="none"` to call function tools.<span class="mark">"</span>
+> <span class="mark">"</span>This course uses OpenAI's Responses API: `use_responses_api=True`, the API OpenAI recommends for new projects.<span class="mark">"</span>
 
-<div class="by">— the course gotcha: whenever an agent has tools, build the model with<br><code>init_chat_model("openai:gpt-6-luna", reasoning_effort="none")</code></div>
+<div class="by">— the course gotcha: <code>ChatOpenAI</code> defaults to Chat Completions, where gpt-6-luna only calls tools with <code>reasoning_effort="none"</code> and some tiers can't call tools at all.<br>And <code>.content</code> is now a list of blocks, so read output with <code>.text</code></div>
 
 ---
 
@@ -443,7 +443,8 @@ class MovieReview(BaseModel):
     key_points: List[str]
     recommended: bool
 
-agent = create_agent(model="openai:gpt-6-luna", response_format=MovieReview)
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
+agent = create_agent(model=model, response_format=MovieReview)
 result = agent.invoke({"messages": "Analyze this review: ..."})
 review = result["structured_response"]     # a validated MovieReview
 ```
@@ -457,7 +458,7 @@ review = result["structured_response"]     # a validated MovieReview
 | How | provider's native structured-output API | tool-calling to extract |
 | Works with | OpenAI · Anthropic · Gemini | any tool-capable model |
 | Speed | fastest | one extra hop |
-| Gotcha | — | needs `reasoning_effort="none"` |
+| Gotcha | — | needs tool calling: `use_responses_api=True` for gpt-6-luna |
 
 * Pass the schema directly (`response_format=MovieReview`) and LangChain **auto-picks**
 
@@ -496,7 +497,7 @@ Typed results, nested models, batch scoring
 ```text
 With response_format=MyPydanticModel, where does the typed result appear?
 
-  A. result["messages"][-1].content, as a JSON string to parse
+  A. result["messages"][-1].text, as a JSON string to parse
   B. result["structured_response"], as a validated model instance
   C. It's written to a file next to the notebook
   D. In a separate .schema attribute on the agent

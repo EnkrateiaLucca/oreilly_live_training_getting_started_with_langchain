@@ -486,7 +486,8 @@ result = agent.invoke({"messages": "Hello"})
 result["messages"][-1].pretty_print()
 
 # Minimal (3 lines)
-agent = create_agent(model="openai:gpt-6-luna", tools=[])
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
+agent = create_agent(model=model, tools=[])
 result = agent.invoke({"messages": "What is LangChain?"})</code></pre>
             </div>
             <div class="code-card">
@@ -494,8 +495,8 @@ result = agent.invoke({"messages": "What is LangChain?"})</code></pre>
                 <pre><code>from langchain_tavily import TavilySearch
 
 search = TavilySearch(max_results=5)
-# Reasoning models need reasoning_effort="none" to use function tools
-model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
+# OpenAI's Responses API: gpt-6-luna calls tools, no extra flags
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 
 agent = create_agent(
     model=model,
@@ -522,20 +523,20 @@ for step in agent.stream(
                 <div class="code-card-header">init_chat_model() — 3 invocation modes</div>
                 <pre><code>from langchain.chat_models import init_chat_model
 
-model = init_chat_model("openai:gpt-6-luna")
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 
 # invoke() — single response
 r = model.invoke("Why is the sky blue?")
-print(r.content)
+print(r.text)
 
 # stream() — token by token
 for chunk in model.stream("Tell me a joke"):
-    print(chunk.content, end="", flush=True)
+    print(chunk.text, end="", flush=True)
 
 # batch() — parallel requests
 responses = model.batch(["Q1?", "Q2?", "Q3?"])
 for r in responses:
-    print(r.content)</code></pre>
+    print(r.text)</code></pre>
             </div>
             <div class="table-card">
                 <div class="table-card-header">Provider String Formats</div>
@@ -664,7 +665,7 @@ def get_account_info(
                 <div class="code-card-header">Memory with checkpointer</div>
                 <pre><code>from langgraph.checkpoint.memory import InMemorySaver
 
-model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 agent = create_agent(
     model=model,
     tools=[search],
@@ -732,8 +733,8 @@ for step in agent.stream(
 for token, _ in agent.stream(
     {"messages": "..."}, stream_mode="messages"
 ):
-    if token.content:
-        print(token.content, end="", flush=True)
+    if token.text:
+        print(token.text, end="", flush=True)
 
 # Mode 3: custom (tool progress)
 from langgraph.config import get_stream_writer
@@ -764,6 +765,9 @@ for chunk in agent.stream(
                 <div class="code-card-header">Approach 1: TypedDict (returns dict)</div>
                 <pre><code>from typing_extensions import TypedDict
 from langchain.agents import create_agent
+from langchain.chat_models import init_chat_model
+
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 
 class ContactInfo(TypedDict):
     name: str
@@ -771,7 +775,7 @@ class ContactInfo(TypedDict):
     phone: str
 
 agent = create_agent(
-    model="openai:gpt-6-luna",
+    model=model,
     response_format=ContactInfo,
 )
 
@@ -794,7 +798,7 @@ class MovieReview(BaseModel):
     recommended: bool
 
 agent = create_agent(
-    model="openai:gpt-6-luna",
+    model=model,
     response_format=MovieReview,
 )
 result = agent.invoke({
@@ -823,9 +827,9 @@ print(review.title, review.rating)  # Inception 9</code></pre>
     ProviderStrategy, ToolStrategy
 )
 
-# ToolStrategy uses function-tool calling under the hood,
-# which requires reasoning_effort="none" on this endpoint.
-model = init_chat_model("openai:gpt-6-luna", reasoning_effort="none")
+# ToolStrategy uses function-tool calling under the hood;
+# on the Responses API gpt-6-luna calls tools, no extra flags.
+model = init_chat_model("openai:gpt-6-luna", use_responses_api=True)
 
 # Native (fastest for OpenAI/Anthropic)
 agent = create_agent(
@@ -874,7 +878,7 @@ class JobFitEvaluation(BaseModel):
             <div class="code-card">
                 <div class="code-card-header">Using structured output for batch comparison</div>
                 <pre><code>resume_agent = create_agent(
-    model="openai:gpt-6-luna",
+    model=model,
     system_prompt="You are a technical recruiter.",
     response_format=JobFitEvaluation,
 )
@@ -1096,7 +1100,7 @@ search = TavilySearch(max_results=5)  # web
 
 agent = create_agent(
     model=init_chat_model(
-        "openai:gpt-6-luna", reasoning_effort="none"
+        "openai:gpt-6-luna", use_responses_api=True
     ),
     tools=[search_documents, search],
     system_prompt=SYSTEM_PROMPT,
@@ -1137,7 +1141,7 @@ agent = create_agent(
                 </thead>
                 <tbody>
                     <tr><td><strong>Create agent</strong></td><td><code>create_agent(model, tools)</code></td><td><code>checkpointer</code>, <code>response_format</code>, <code>system_prompt</code></td></tr>
-                    <tr><td><strong>Init model</strong></td><td><code>init_chat_model("provider:model")</code></td><td>Returns ChatModel — supports invoke/stream/batch</td></tr>
+                    <tr><td><strong>Init model</strong></td><td><code>init_chat_model("provider:model")</code></td><td>Returns ChatModel — invoke/stream/batch; OpenAI: <code>use_responses_api=True</code>, read output with <code>.text</code></td></tr>
                     <tr><td><strong>Define tool</strong></td><td><code>@tool</code> decorator</td><td>Type hints + docstring mandatory; use <code>args_schema=</code> for Pydantic</td></tr>
                     <tr><td><strong>Add memory</strong></td><td><code>InMemorySaver()</code> + thread_id</td><td><code>{"configurable": {"thread_id": "..."}}</code> as config arg</td></tr>
                     <tr><td><strong>Structured output</strong></td><td><code>response_format=MyModel</code></td><td><code>result["structured_response"]</code> returns dict or Pydantic instance</td></tr>

@@ -82,13 +82,13 @@
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> langchain.chat_models <span class="hljs-keyword">import</span> init_chat_model
 <span class="hljs-keyword">from</span> langchain.messages <span class="hljs-keyword">import</span> HumanMessage, SystemMessage
 
-model = init_chat_model(<span class="hljs-string">&quot;openai:gpt-6-luna&quot;</span>, reasoning_effort=<span class="hljs-string">&quot;none&quot;</span>)
+model = init_chat_model(<span class="hljs-string">&quot;openai:gpt-6-luna&quot;</span>, use_responses_api=<span class="hljs-literal">True</span>)
 
 response = model.invoke([
     SystemMessage(content=<span class="hljs-string">&quot;You tell jokes.&quot;</span>),
     HumanMessage(content=<span class="hljs-string">&quot;Tell me a joke about a bald teacher.&quot;</span>),
 ])
-<span class="hljs-built_in">print</span>(response.content)   <span class="hljs-comment"># an AIMessage — text in, text out</span>
+<span class="hljs-built_in">print</span>(response.text)   <span class="hljs-comment"># an AIMessage — read its text with .text</span>
 </code></pre>
 <p>No tools, no loop — the model can only <em>talk</em>. Let's give it hands.</p>
 </section>
@@ -129,7 +129,7 @@ messages.append(ai_message)
         ai_message = model_with_tools.invoke(messages)
         messages.append(ai_message)
         <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ai_message.tool_calls:          <span class="hljs-comment"># done — no more tool requests</span>
-            <span class="hljs-keyword">return</span> ai_message.content
+            <span class="hljs-keyword">return</span> ai_message.text
         <span class="hljs-keyword">for</span> call <span class="hljs-keyword">in</span> ai_message.tool_calls:     <span class="hljs-comment"># execute each requested tool</span>
             result = tools_by_name[call[<span class="hljs-string">&quot;name&quot;</span>]].invoke(call[<span class="hljs-string">&quot;args&quot;</span>])
             messages.append(ToolMessage(content=<span class="hljs-built_in">str</span>(result),
@@ -328,9 +328,9 @@ agent.invoke({<span class="hljs-string">&quot;messages&quot;</span>: <span class
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-class="dark quote" data-theme="automata" lang="en-US" class="dark quote" data-marpit-pagination="26" style="--paginate:true;--class:dark quote;--theme:automata;" data-marpit-pagination-total="55">
 <blockquote>
-<p><span class="mark">&quot;</span>Reasoning models need <code>reasoning_effort=&quot;none&quot;</code> to call function tools.<span class="mark">&quot;</span></p>
+<p><span class="mark">&quot;</span>This course uses OpenAI's Responses API: <code>use_responses_api=True</code>, the API OpenAI recommends for new projects.<span class="mark">&quot;</span></p>
 </blockquote>
-<div class="by">— the course gotcha: whenever an agent has tools, build the model with<br /><code>init_chat_model("openai:gpt-6-luna", reasoning_effort="none")</code></div>
+<div class="by">— the course gotcha: <code>ChatOpenAI</code> defaults to Chat Completions, where gpt-6-luna only calls tools with <code>reasoning_effort="none"</code> and some tiers can't call tools at all.<br />And <code>.content</code> is now a list of blocks, so read output with <code>.text</code></div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-class="lead" data-theme="automata" lang="en-US" class="lead" data-marpit-pagination="27" style="--paginate:true;--class:lead;--theme:automata;" data-marpit-pagination-total="55"><div class="kicker">Notebook demo</div>
 <h1 id="10-langchain-fundamentalsipynb"><code>1.0-langchain-fundamentals.ipynb</code></h1>
@@ -394,7 +394,8 @@ like LangChain for LLM-based applications?
     key_points: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]
     recommended: <span class="hljs-built_in">bool</span>
 
-agent = create_agent(model=<span class="hljs-string">&quot;openai:gpt-6-luna&quot;</span>, response_format=MovieReview)
+model = init_chat_model(<span class="hljs-string">&quot;openai:gpt-6-luna&quot;</span>, use_responses_api=<span class="hljs-literal">True</span>)
+agent = create_agent(model=model, response_format=MovieReview)
 result = agent.invoke({<span class="hljs-string">&quot;messages&quot;</span>: <span class="hljs-string">&quot;Analyze this review: ...&quot;</span>})
 review = result[<span class="hljs-string">&quot;structured_response&quot;</span>]     <span class="hljs-comment"># a validated MovieReview</span>
 </code></pre>
@@ -428,7 +429,7 @@ review = result[<span class="hljs-string">&quot;structured_response&quot;</span>
 <tr>
 <td>Gotcha</td>
 <td>—</td>
-<td>needs <code>reasoning_effort=&quot;none&quot;</code></td>
+<td>needs tool calling: <code>use_responses_api=True</code> for gpt-6-luna</td>
 </tr>
 </tbody>
 </table>
@@ -461,7 +462,7 @@ review = result[<span class="hljs-string">&quot;structured_response&quot;</span>
 <h2 id="poll-2">Poll</h2>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-text">With response_format=MyPydanticModel, where does the typed result appear?
 
-  A. result[&quot;messages&quot;][-1].content, as a JSON string to parse
+  A. result[&quot;messages&quot;][-1].text, as a JSON string to parse
   B. result[&quot;structured_response&quot;], as a validated model instance
   C. It&#x27;s written to a file next to the notebook
   D. In a separate .schema attribute on the agent
