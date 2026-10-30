@@ -701,7 +701,7 @@ The same `create_agent()` pattern, three deployment stories
 
 # Thanks for <em>building</em> along
 
-Questions → lucas@automata-learning-lab · course repo has every notebook, demo, and deploy guide
+Questions → lucasenkrateia@gmail.com · course repo has every notebook, demo, and deploy guide
 
 ---
 
